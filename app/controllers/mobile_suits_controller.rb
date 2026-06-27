@@ -65,6 +65,6 @@ class MobileSuitsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def mobile_suit_params
-      params.expect(mobile_suit: [ :name, :warship_id ])
+      params.expect(mobile_suit: [ :name ])
     end
 end
