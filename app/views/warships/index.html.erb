@@ -1,16 +1,33 @@
 <p style="color: green"><%= notice %></p>
 
-<% content_for :title, "Warships" %>
-
 <h1>Warships</h1>
 
-<div id="warships">
-  <% @warships.each do |warship| %>
-    <%= render warship %>
-    <p>
-      <%= link_to "Show this warship", warship %>
-    </p>
-  <% end %>
-</div>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Captain</th>
+      <th>Pilot number</th>
+    </tr>
+  </thead>
 
-<%= link_to "New warship", new_warship_path %>
+  <tbody>
+    <% @warships.each do |warship| %>
+      <tr>
+        <td><%= link_to warship.name, warship %></td>
+        <td>
+          <% if warship.captain.present? %>
+            <%= link_to warship.captain.name, warship.captain %>
+          <% else %>
+            No captain
+          <% end %>
+        </td>
+        <td><%= warship.pilot_assignments.count %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p>
+  <%= link_to "New warship", new_warship_path %>
+</p>

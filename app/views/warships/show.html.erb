@@ -1,6 +1,66 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @warship %>
+<h1><%= @warship.name %></h1>
+
+<h2>Captain</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Image</th>
+      <th>Name</th>
+      <th>Gender</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% if @warship.captain.present? %>
+      <tr>
+        <td><%= link_to "Image", @warship.captain %></td>
+        <td><%= @warship.captain.name %></td>
+        <td><%= @warship.captain.gender %></td>
+        <td><%= @warship.captain.rank %></td>
+      </tr>
+    <% else %>
+      <tr>
+        <td colspan="4">No captain</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h2>Pilots</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Image</th>
+      <th>Name</th>
+      <th>Gender</th>
+      <th>Rank</th>
+      <th>Mobile suit</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @warship.pilot_assignments.each do |pilot_assignment| %>
+      <tr>
+        <td><%= link_to "Image", pilot_assignment.crew_member %></td>
+        <td><%= pilot_assignment.crew_member.name %></td>
+        <td><%= pilot_assignment.crew_member.gender %></td>
+        <td><%= pilot_assignment.crew_member.rank %></td>
+        <td>
+          <% if pilot_assignment.mobile_suit.present? %>
+            <%= link_to pilot_assignment.mobile_suit.name, edit_pilot_assignment_path(pilot_assignment) %>
+          <% else %>
+            <%= link_to "Not assigned", edit_pilot_assignment_path(pilot_assignment) %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <div>
   <%= link_to "Edit this warship", edit_warship_path(@warship) %> |
