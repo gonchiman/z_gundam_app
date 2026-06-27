@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @mobile_suit %>
+
+<div>
+  <%= link_to "Edit this mobile suit", edit_mobile_suit_path(@mobile_suit) %> |
+  <%= link_to "Back to mobile suits", mobile_suits_path %>
+
+  <%= button_to "Destroy this mobile suit", @mobile_suit, method: :delete %>
+</div>

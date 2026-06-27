@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Pilot assignments" %>
+
+<h1>Pilot assignments</h1>
+
+<div id="pilot_assignments">
+  <% @pilot_assignments.each do |pilot_assignment| %>
+    <%= render pilot_assignment %>
+    <p>
+      <%= link_to "Show this pilot assignment", pilot_assignment %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New pilot assignment", new_pilot_assignment_path %>

@@ -1,0 +1,2 @@
+class Warship < ApplicationRecord
+end

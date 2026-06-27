@@ -1,0 +1,11 @@
+<% content_for :title, "New warship" %>
+
+<h1>New warship</h1>
+
+<%= render "form", warship: @warship %>
+
+<br>
+
+<div>
+  <%= link_to "Back to warships", warships_path %>
+</div>

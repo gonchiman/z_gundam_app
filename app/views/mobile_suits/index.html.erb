@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Mobile suits" %>
+
+<h1>Mobile suits</h1>
+
+<div id="mobile_suits">
+  <% @mobile_suits.each do |mobile_suit| %>
+    <%= render mobile_suit %>
+    <p>
+      <%= link_to "Show this mobile suit", mobile_suit %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New mobile suit", new_mobile_suit_path %>

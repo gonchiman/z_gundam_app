@@ -1,0 +1,2 @@
+module PilotAssignmentsHelper
+end

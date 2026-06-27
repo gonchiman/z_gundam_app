@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @pilot_assignment %>
+
+<div>
+  <%= link_to "Edit this pilot assignment", edit_pilot_assignment_path(@pilot_assignment) %> |
+  <%= link_to "Back to pilot assignments", pilot_assignments_path %>
+
+  <%= button_to "Destroy this pilot assignment", @pilot_assignment, method: :delete %>
+</div>

@@ -1,0 +1,12 @@
+<% content_for :title, "Editing mobile suit" %>
+
+<h1>Editing mobile suit</h1>
+
+<%= render "form", mobile_suit: @mobile_suit %>
+
+<br>
+
+<div>
+  <%= link_to "Show this mobile suit", @mobile_suit %> |
+  <%= link_to "Back to mobile suits", mobile_suits_path %>
+</div>

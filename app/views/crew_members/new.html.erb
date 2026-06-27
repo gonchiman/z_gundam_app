@@ -1,0 +1,11 @@
+<% content_for :title, "New crew member" %>
+
+<h1>New crew member</h1>
+
+<%= render "form", crew_member: @crew_member %>
+
+<br>
+
+<div>
+  <%= link_to "Back to crew members", crew_members_path %>
+</div>

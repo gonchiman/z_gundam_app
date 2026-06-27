@@ -1,0 +1,11 @@
+<% content_for :title, "New pilot assignment" %>
+
+<h1>New pilot assignment</h1>
+
+<%= render "form", pilot_assignment: @pilot_assignment %>
+
+<br>
+
+<div>
+  <%= link_to "Back to pilot assignments", pilot_assignments_path %>
+</div>

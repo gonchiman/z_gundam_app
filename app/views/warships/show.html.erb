@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @warship %>
+
+<div>
+  <%= link_to "Edit this warship", edit_warship_path(@warship) %> |
+  <%= link_to "Back to warships", warships_path %>
+
+  <%= button_to "Destroy this warship", @warship, method: :delete %>
+</div>

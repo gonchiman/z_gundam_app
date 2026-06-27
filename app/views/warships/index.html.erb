@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Warships" %>
+
+<h1>Warships</h1>
+
+<div id="warships">
+  <% @warships.each do |warship| %>
+    <%= render warship %>
+    <p>
+      <%= link_to "Show this warship", warship %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New warship", new_warship_path %>

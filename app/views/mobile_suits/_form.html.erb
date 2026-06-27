@@ -1,0 +1,27 @@
+<%= form_with(model: mobile_suit) do |form| %>
+  <% if mobile_suit.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(mobile_suit.errors.count, "error") %> prohibited this mobile_suit from being saved:</h2>
+
+      <ul>
+        <% mobile_suit.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :warship_id, style: "display: block" %>
+    <%= form.text_field :warship_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
