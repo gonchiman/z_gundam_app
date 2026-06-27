@@ -1,3 +1,3 @@
 class MobileSuit < ApplicationRecord
-  has_one :pilot_assignment
+  has_many :pilot_assignments
 end
