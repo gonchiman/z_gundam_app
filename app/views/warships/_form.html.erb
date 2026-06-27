@@ -18,7 +18,7 @@
 
   <div>
     <%= form.label :captain_id, style: "display: block" %>
-    <%= form.number_field :captain_id %>
+    <%= form.collection_select :captain_id, CrewMember.all, :id, :name, include_blank: true %>
   </div>
 
   <div>
