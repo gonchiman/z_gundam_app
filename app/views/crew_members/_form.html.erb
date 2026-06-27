@@ -18,17 +18,36 @@
 
   <div>
     <%= form.label :gender, style: "display: block" %>
-    <%= form.text_field :gender %>
+    <%= form.select :gender, [
+      ["男性", "男性"],
+      ["女性", "女性"],
+      ["その他", "その他"]
+    ] %>
   </div>
 
   <div>
     <%= form.label :rank, style: "display: block" %>
-    <%= form.text_field :rank %>
+    <%= form.select :rank, [
+      ["民間人", "民間人"],
+      ["伍長", "伍長"],
+      ["軍曹", "軍曹"],
+      ["曹長", "曹長"],
+      ["少尉", "少尉"],
+      ["中尉", "中尉"],
+      ["大尉", "大尉"],
+      ["少佐", "少佐"],
+      ["中佐", "中佐"],
+      ["大佐", "大佐"]
+    ] %>
   </div>
 
   <div>
     <%= form.label :role_type, style: "display: block" %>
-    <%= form.text_field :role_type %>
+    <%= form.select :role_type, [
+      ["Captain only", "captain_only"],
+      ["Pilot only", "pilot_only"],
+      ["Captain and pilot", "captain_and_pilot"]
+    ] %>
   </div>
 
   <div>
