@@ -8,3 +8,38 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+th {
+  background-color: #eeeeee;
+  border: 1px solid #cccccc;
+  padding: 8px;
+  text-align: left;
+}
+
+td {
+  border: 1px solid #cccccc;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tr:hover {
+  background-color: #eef6ff;
+}
+
+h1 {
+  margin-bottom: 16px;
+}
+
+h2 {
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
