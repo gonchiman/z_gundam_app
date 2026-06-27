@@ -13,17 +13,17 @@
 
   <div>
     <%= form.label :warship_id, style: "display: block" %>
-    <%= form.text_field :warship_id %>
+    <%= form.collection_select :warship_id, Warship.all, :id, :name %>
   </div>
 
   <div>
     <%= form.label :crew_member_id, style: "display: block" %>
-    <%= form.text_field :crew_member_id %>
+    <%= form.collection_select :crew_member_id, CrewMember.all, :id, :name %>
   </div>
 
   <div>
     <%= form.label :mobile_suit_id, style: "display: block" %>
-    <%= form.number_field :mobile_suit_id %>
+    <%= form.collection_select :mobile_suit_id, MobileSuit.all, :id, :name, include_blank: true %>
   </div>
 
   <div>
