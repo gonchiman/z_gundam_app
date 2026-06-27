@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_27_065808) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_27_075209) do
   create_table "crew_members", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "gender"
@@ -24,8 +24,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_27_065808) do
     t.datetime "created_at", null: false
     t.string "name"
     t.datetime "updated_at", null: false
-    t.integer "warship_id", null: false
-    t.index ["warship_id"], name: "index_mobile_suits_on_warship_id"
   end
 
   create_table "pilot_assignments", force: :cascade do |t|
@@ -45,7 +43,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_27_065808) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "mobile_suits", "warships"
   add_foreign_key "pilot_assignments", "crew_members"
   add_foreign_key "pilot_assignments", "warships"
 end
