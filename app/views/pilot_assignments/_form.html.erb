@@ -18,7 +18,11 @@
 
   <div>
     <%= form.label :crew_member_id, style: "display: block" %>
-    <%= form.collection_select :crew_member_id, CrewMember.all, :id, :name %>
+    <%= form.collection_select :crew_member_id,
+      CrewMember.where(role_type: ["pilot_only", "captain_and_pilot"]),
+      :id,
+      :name
+    %>
   </div>
 
   <div>

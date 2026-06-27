@@ -18,7 +18,12 @@
 
   <div>
     <%= form.label :captain_id, style: "display: block" %>
-    <%= form.collection_select :captain_id, CrewMember.all, :id, :name, include_blank: true %>
+    <%= form.collection_select :captain_id,
+      CrewMember.where(role_type: ["captain_only", "captain_and_pilot"]),
+      :id,
+      :name,
+      include_blank: true
+    %>
   </div>
 
   <div>
