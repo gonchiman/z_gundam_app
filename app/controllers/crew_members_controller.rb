@@ -1,4 +1,5 @@
 class CrewMembersController < ApplicationController
+  skip_before_action :require_authentication, only: [:index, :show]
   before_action :set_crew_member, only: %i[ show edit update destroy ]
 
   # GET /crew_members or /crew_members.json

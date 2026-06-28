@@ -1,4 +1,5 @@
 class PilotAssignmentsController < ApplicationController
+  skip_before_action :require_authentication, only: [:index, :show]
   before_action :set_pilot_assignment, only: %i[ show edit update destroy ]
 
   # GET /pilot_assignments or /pilot_assignments.json

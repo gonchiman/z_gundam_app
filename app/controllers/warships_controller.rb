@@ -1,4 +1,5 @@
 class WarshipsController < ApplicationController
+  skip_before_action :require_authentication, only: [:index, :show]
   before_action :set_warship, only: %i[ show edit update destroy ]
 
   # GET /warships or /warships.json

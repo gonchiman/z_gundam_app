@@ -1,4 +1,5 @@
 class MobileSuitsController < ApplicationController
+  skip_before_action :require_authentication, only: [:index, :show]
   before_action :set_mobile_suit, only: %i[ show edit update destroy ]
 
   # GET /mobile_suits or /mobile_suits.json
