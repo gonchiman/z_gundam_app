@@ -17,7 +17,15 @@
   <tbody>
     <% if @warship.captain.present? %>
       <tr>
-        <td><%= link_to "Image", @warship.captain %></td>
+        <td>
+          <% if @warship.captain.image.attached? %>
+            <%= link_to @warship.captain do %>
+              <%= image_tag @warship.captain.image, width: 100 %>
+            <% end %>
+          <% else %>
+            No image
+          <% end %>
+        </td>
         <td><%= @warship.captain.name %></td>
         <td><%= @warship.captain.gender %></td>
         <td><%= @warship.captain.rank %></td>
@@ -46,12 +54,24 @@
   <tbody>
     <% @warship.pilot_assignments.each do |pilot_assignment| %>
       <tr>
-        <td><%= link_to "Image", pilot_assignment.crew_member %></td>
+        <td>
+          <% if pilot_assignment.crew_member.image.attached? %>
+            <%= link_to pilot_assignment.crew_member do %>
+              <%= image_tag pilot_assignment.crew_member.image, width: 100 %>
+            <% end %>
+          <% else %>
+            No image
+          <% end %>
+        </td>
         <td><%= pilot_assignment.crew_member.name %></td>
         <td><%= pilot_assignment.crew_member.gender %></td>
         <td><%= pilot_assignment.crew_member.rank %></td>
         <td>
-          <% if pilot_assignment.mobile_suit.present? %>
+          <% if pilot_assignment.mobile_suit.present? && pilot_assignment.mobile_suit.image.attached? %>
+            <%= link_to edit_pilot_assignment_path(pilot_assignment) do %>
+              <%= image_tag pilot_assignment.mobile_suit.image, width: 100 %>
+            <% end %>
+          <% elsif pilot_assignment.mobile_suit.present? %>
             <%= link_to pilot_assignment.mobile_suit.name, edit_pilot_assignment_path(pilot_assignment) %>
           <% else %>
             <%= link_to "Not assigned", edit_pilot_assignment_path(pilot_assignment) %>
