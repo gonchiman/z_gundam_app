@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "home/index"
   resources :pilot_assignments
   resources :mobile_suits
   resources :warships
