@@ -28,7 +28,7 @@
 
     <% if current_session %>
       <p>
-        Logged in as <%= current_session.user.email_address %>
+        Logged in as <%= current_session.user.name %>
         <%= button_to "Logout", session_path, method: :delete %>
       </p>
     <% else %>
