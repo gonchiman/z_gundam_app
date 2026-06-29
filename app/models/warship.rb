@@ -4,6 +4,8 @@ class Warship < ApplicationRecord
 
   has_many :pilot_assignments, dependent: :destroy
 
+  has_one_attached :image
+
   validate :captain_must_be_available
 
   private

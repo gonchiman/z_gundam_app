@@ -70,7 +70,7 @@ class WarshipsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def warship_params
-      params.expect(warship: [ :name, :captain_id ])
+      params.expect(warship: [ :name, :captain_id, :image ])
     end
 
     def check_owner

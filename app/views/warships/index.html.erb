@@ -5,6 +5,7 @@
 <table>
   <thead>
     <tr>
+      <th>Image</th>
       <th>Name</th>
       <th>Captain</th>
       <th>Pilot number</th>
@@ -15,6 +16,15 @@
   <tbody>
     <% @warships.each do |warship| %>
       <tr>
+        <td>
+          <% if warship.image.attached? %>
+            <%= link_to warship do %>
+              <%= image_tag warship.image, width: 100 %>
+            <% end %>
+          <% else %>
+            No image
+          <% end %>
+        </td>
         <td><%= link_to warship.name, warship %></td>
         <td>
           <% if warship.captain.present? %>
