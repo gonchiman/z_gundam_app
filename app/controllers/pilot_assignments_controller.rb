@@ -13,7 +13,7 @@ class PilotAssignmentsController < ApplicationController
 
   # GET /pilot_assignments/new
   def new
-    @pilot_assignment = PilotAssignment.new
+  @pilot_assignment = PilotAssignment.new(warship_id: params[:warship_id])
   end
 
   # GET /pilot_assignments/1/edit
