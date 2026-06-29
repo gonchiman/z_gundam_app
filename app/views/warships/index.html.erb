@@ -8,6 +8,7 @@
       <th>Name</th>
       <th>Captain</th>
       <th>Pilot number</th>
+      <th>Created by</th>
     </tr>
   </thead>
 
@@ -23,6 +24,7 @@
           <% end %>
         </td>
         <td><%= warship.pilot_assignments.count %></td>
+        <td><%= warship.user&.name %></td>
       </tr>
     <% end %>
   </tbody>

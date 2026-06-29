@@ -1,6 +1,7 @@
 class WarshipsController < ApplicationController
   skip_before_action :require_authentication, only: [:index, :show]
   before_action :set_warship, only: %i[ show edit update destroy ]
+  before_action :check_owner, only: [:edit, :update, :destroy]
 
   # GET /warships or /warships.json
   def index
@@ -23,6 +24,9 @@ class WarshipsController < ApplicationController
   # POST /warships or /warships.json
   def create
     @warship = Warship.new(warship_params)
+
+    current_session = Session.find_by_id(cookies.signed[:session_id])
+    @warship.user = current_session.user
 
     respond_to do |format|
       if @warship.save
@@ -67,5 +71,13 @@ class WarshipsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def warship_params
       params.expect(warship: [ :name, :captain_id ])
+    end
+
+    def check_owner
+      current_session = Session.find_by_id(cookies.signed[:session_id])
+
+      if @warship.user != current_session.user
+        redirect_to @warship, alert: "You cannot edit this warship."
+      end
     end
 end
