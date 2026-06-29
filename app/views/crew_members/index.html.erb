@@ -5,12 +5,39 @@
 <h1>Crew members</h1>
 
 <div id="crew_members">
-  <% @crew_members.each do |crew_member| %>
-    <%= render crew_member %>
-    <p>
-      <%= link_to "Show this crew member", crew_member %>
-    </p>
-  <% end %>
+  <table>
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Gender</th>
+        <th>Rank</th>
+        <th>Role type</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @crew_members.each do |crew_member| %>
+        <tr id="<%= dom_id crew_member %>">
+          <td>
+            <% if crew_member.respond_to?(:image) && crew_member.image.attached? %>
+              <%= image_tag crew_member.image, width: 100 %>
+            <% else %>
+              No Image
+            <% end %>
+          </td>
+          <td><%= crew_member.name %></td>
+          <td><%= crew_member.gender %></td>
+          <td><%= crew_member.rank %></td>
+          <td><%= crew_member.role_type %></td>
+          <td>
+            <%= link_to "Show", crew_member %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
 
+<br>
 <%= link_to "New crew member", new_crew_member_path %>
