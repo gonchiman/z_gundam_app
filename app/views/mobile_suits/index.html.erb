@@ -5,12 +5,33 @@
 <h1>Mobile suits</h1>
 
 <div id="mobile_suits">
-  <% @mobile_suits.each do |mobile_suit| %>
-    <%= render mobile_suit %>
-    <p>
-      <%= link_to "Show this mobile suit", mobile_suit %>
-    </p>
-  <% end %>
+  <table>
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @mobile_suits.each do |mobile_suit| %>
+        <tr id="<%= dom_id mobile_suit %>">
+          <td>
+            <% if mobile_suit.respond_to?(:image) && mobile_suit.image.attached? %>
+              <%= image_tag mobile_suit.image, width: 100 %>
+            <% else %>
+              No Image
+            <% end %>
+          </td>
+          <td><%= mobile_suit.name %></td>
+          <td>
+            <%= link_to "Show", mobile_suit %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
 
+<br>
 <%= link_to "New mobile suit", new_mobile_suit_path %>
