@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
+  resources :users
   resource :session
   resources :passwords, param: :token
-  resources :users, only: [:new, :create]
+  resources :users
   root "home#index"
 
   get "home/index"
