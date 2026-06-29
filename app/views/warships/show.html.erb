@@ -82,6 +82,8 @@
   </tbody>
 </table>
 
+<%= link_to "New pilot assignment", new_pilot_assignment_path(warship_id:@warship_id)%>
+
 <div>
   <%= link_to "Edit this warship", edit_warship_path(@warship) %> |
   <%= link_to "Back to warships", warships_path %>
