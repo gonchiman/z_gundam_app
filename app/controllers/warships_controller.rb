@@ -1,7 +1,7 @@
 class WarshipsController < ApplicationController
   skip_before_action :require_authentication, only: [:index, :show]
   before_action :set_warship, only: %i[ show edit update destroy ]
-  before_action :check_owner, only: [:edit, :update, :destroy]
+  before_action :check_owner, only: %i[ edit update destroy ]
 
   # GET /warships or /warships.json
   def index
@@ -75,9 +75,11 @@ class WarshipsController < ApplicationController
 
     def check_owner
       current_session = Session.find_by_id(cookies.signed[:session_id])
+      current_user = current_session.user
 
-      if @warship.user != current_session.user
-        redirect_to @warship, alert: "You cannot edit this warship."
-      end
+      return if current_user.role == "admin"
+      return if @warship.user == current_user
+
+      redirect_to @warship, alert: "You cannot edit this warship."
     end
 end
