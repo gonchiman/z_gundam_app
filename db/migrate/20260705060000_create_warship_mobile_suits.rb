@@ -1,5 +1,5 @@
 class CreateWarshipMobileSuits < ActiveRecord::Migration[8.1]
-  def change
+  def up
     create_table :warship_mobile_suits do |t|
       t.references :warship, null: false, foreign_key: true
       t.references :mobile_suit, null: false, foreign_key: true
@@ -15,5 +15,9 @@ class CreateWarshipMobileSuits < ActiveRecord::Migration[8.1]
     SQL
 
     add_index :warship_mobile_suits, [:warship_id, :mobile_suit_id], unique: true
+  end
+
+  def down
+    drop_table :warship_mobile_suits
   end
 end
