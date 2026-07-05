@@ -14,36 +14,6 @@
 <h2>Total combat power</h2>
 <p><%= @warship.total_combat_power %></p>
 
-<h2>Budget</h2>
-<table>
-  <tbody>
-    <tr>
-      <th>Budget</th>
-      <td><%= number_to_currency(@warship.budget, unit: "$", precision: 0) %></td>
-    </tr>
-    <tr>
-      <th>Captain cost</th>
-      <td><%= number_to_currency(@warship.captain_cost, unit: "$", precision: 0) %></td>
-    </tr>
-    <tr>
-      <th>Pilot cost</th>
-      <td><%= number_to_currency(@warship.pilot_cost, unit: "$", precision: 0) %></td>
-    </tr>
-    <tr>
-      <th>Mobile suit cost</th>
-      <td><%= number_to_currency(@warship.mobile_suit_cost, unit: "$", precision: 0) %></td>
-    </tr>
-    <tr>
-      <th>Total cost</th>
-      <td><%= number_to_currency(@warship.total_cost, unit: "$", precision: 0) %></td>
-    </tr>
-    <tr>
-      <th>Remaining budget</th>
-      <td><%= number_to_currency(@warship.remaining_budget, unit: "$", precision: 0) %></td>
-    </tr>
-  </tbody>
-</table>
-
 <h2>Captain</h2>
 
 <table>
@@ -185,6 +155,36 @@
   <%= form.collection_select :mobile_suit_id, MobileSuit.all, :id, :name %>
   <%= form.submit "Buy mobile suit" %>
 <% end %>
+
+<h2>Budget</h2>
+<table>
+  <tbody>
+    <tr>
+      <th>Budget</th>
+      <td><%= number_to_currency(@warship.budget, unit: "$", precision: 0) %></td>
+    </tr>
+    <tr>
+      <th>Captain cost</th>
+      <td><%= number_to_currency(@warship.captain_cost, unit: "$", precision: 0) %></td>
+    </tr>
+    <tr>
+      <th>Pilot cost</th>
+      <td><%= number_to_currency(@warship.pilot_cost, unit: "$", precision: 0) %></td>
+    </tr>
+    <tr>
+      <th>Mobile suit cost</th>
+      <td><%= number_to_currency(@warship.mobile_suit_cost, unit: "$", precision: 0) %></td>
+    </tr>
+    <tr>
+      <th>Total cost</th>
+      <td><%= number_to_currency(@warship.total_cost, unit: "$", precision: 0) %></td>
+    </tr>
+    <tr>
+      <th>Remaining budget</th>
+      <td><%= number_to_currency(@warship.remaining_budget, unit: "$", precision: 0) %></td>
+    </tr>
+  </tbody>
+</table>
 
 <div>
   <%= link_to "Edit this warship", edit_warship_path(@warship) %> |
