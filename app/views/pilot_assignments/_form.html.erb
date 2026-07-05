@@ -22,7 +22,11 @@
 
     <% if pilot_assignment.warship.present? %>
       <% hired_crew_member_ids = pilot_assignment.warship.pilot_assignments.select(:crew_member_id) %>
-      <% available_crew_members = CrewMember.where(role_type: ["pilot_only", "captain_and_pilot"]).where.not(id: hired_crew_member_ids) %>
+      <% available_crew_members = CrewMember
+        .where(role_type: ["pilot_only", "captain_and_pilot"])
+        .where.not(id: hired_crew_member_ids)
+        .where.not(id: pilot_assignment.warship.captain_id)
+      %>
 
       <div>
         <%= form.label :crew_member_id, "Pilot", style: "display: block" %>
