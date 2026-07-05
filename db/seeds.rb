@@ -30,3 +30,18 @@ CSV.foreach(Rails.root.join("db/csv/mobile_suits.csv"), headers: true, encoding:
 
   mobile_suit.save!
 end
+
+CSV.foreach(Rails.root.join("db/csv/compatibility_bonuses.csv"), headers: true, encoding: "bom|utf-8") do |row|
+  crew_member = CrewMember.find_by!(name: row["crew_member_name"])
+  mobile_suit = MobileSuit.find_by!(name: row["mobile_suit_name"])
+
+  compatibility_bonus = CompatibilityBonus.find_or_initialize_by(
+    crew_member: crew_member,
+    mobile_suit: mobile_suit
+  )
+
+  compatibility_bonus.bonus_power = row["bonus_power"].to_i
+  compatibility_bonus.description = row["description"]
+
+  compatibility_bonus.save!
+end
