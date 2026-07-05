@@ -48,6 +48,7 @@
       <th>Gender</th>
       <th>Rank</th>
       <th>Mobile suit</th>
+      <th>Delete</th>
     </tr>
   </thead>
 
@@ -76,6 +77,9 @@
           <% else %>
             <%= link_to "Not assigned", edit_pilot_assignment_path(pilot_assignment) %>
           <% end %>
+        </td>
+        <td>
+          <%= button_to "Delete", pilot_assignment_path(pilot_assignment), method: :delete %>
         </td>
       </tr>
     <% end %>
