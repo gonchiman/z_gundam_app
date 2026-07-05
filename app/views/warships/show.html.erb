@@ -1,7 +1,7 @@
 <p style="color: green"><%= notice %></p>
 <p style="color: red"><%= alert %></p>
 
-<h2><%= @warship.name %></h1>
+<h1><%= @warship.name %></h1>
 
 <% if @warship.main_image.attached? %>
   <div>
@@ -10,6 +10,9 @@
 <% else %>
   <p>No main image</p>
 <% end %>
+
+<h2>Total combat power</h2>
+<p><%= @warship.total_combat_power %></p>
 
 <h2>Captain</h2>
 
@@ -57,6 +60,9 @@
       <th>Gender</th>
       <th>Rank</th>
       <th>Mobile suit</th>
+      <th>Pilot power</th>
+      <th>Mobile suit power</th>
+      <th>Total power</th>
       <th>Assign</th>
       <th>Delete</th>
     </tr>
@@ -87,6 +93,9 @@
               Not assigned
             <% end %>
           </td>
+          <td><%= pilot_assignment.crew_member.combat_power.to_i %></td>
+          <td><%= pilot_assignment.mobile_suit&.combat_power.to_i %></td>
+          <td><%= pilot_assignment.combat_power %></td>
           <td><%= link_to "Assign", edit_pilot_assignment_path(pilot_assignment) %></td>
           <td>
             <%= button_to "Delete", pilot_assignment_path(pilot_assignment), method: :delete %>
@@ -95,7 +104,7 @@
       <% end %>
     <% else %>
       <tr>
-        <td colspan="7">No pilots hired</td>
+        <td colspan="10">No pilots hired</td>
       </tr>
     <% end %>
   </tbody>
