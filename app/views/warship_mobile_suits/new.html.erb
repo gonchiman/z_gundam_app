@@ -1,0 +1,18 @@
+<h1>Buy mobile suit</h1>
+
+<%= form_with(model: @warship_mobile_suit) do |form| %>
+  <%= form.hidden_field :warship_id, value: @warship.id %>
+
+  <div>
+    <%= form.label :mobile_suit_id, "Mobile suit", style: "display: block" %>
+    <%= form.collection_select :mobile_suit_id, MobileSuit.all, :id, :name %>
+  </div>
+
+  <div>
+    <%= form.submit "Buy mobile suit" %>
+  </div>
+<% end %>
+
+<div>
+  <%= link_to "Back to warship", @warship %>
+</div>
