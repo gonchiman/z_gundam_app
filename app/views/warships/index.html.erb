@@ -2,43 +2,54 @@
 
 <h1>Warships</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Image</th>
-      <th>Name</th>
-      <th>Captain</th>
-      <th>Pilot number</th>
-      <th>Created by</th>
-    </tr>
-  </thead>
+<div class="warship-card-grid">
+  <% @warships.each do |warship| %>
+    <% passenger_count = warship.pilot_assignments.count + (warship.captain.present? ? 1 : 0) %>
 
-  <tbody>
-    <% @warships.each do |warship| %>
-      <tr>
-        <td>
-          <% if warship.image.attached? %>
-            <%= link_to warship do %>
-              <%= image_tag warship.image, width: 100 %>
+    <article class="warship-card">
+      <%= link_to warship, class: "warship-card-main-image" do %>
+        <% if warship.main_image.attached? %>
+          <%= image_tag warship.main_image %>
+        <% elsif warship.image.attached? %>
+          <%= image_tag warship.image %>
+        <% else %>
+          <span>No image</span>
+        <% end %>
+      <% end %>
+
+      <div class="warship-card-body">
+        <h2><%= link_to warship.name, warship %></h2>
+
+        <div class="warship-card-captain">
+          <div class="warship-card-captain-image">
+            <% if warship.captain.present? && warship.captain.image.attached? %>
+              <%= image_tag warship.captain.image %>
+            <% else %>
+              <span>No captain image</span>
             <% end %>
-          <% else %>
-            No image
-          <% end %>
-        </td>
-        <td><%= link_to warship.name, warship %></td>
-        <td>
-          <% if warship.captain.present? %>
-            <%= link_to warship.captain.name, warship.captain %>
-          <% else %>
-            No captain
-          <% end %>
-        </td>
-        <td><%= warship.pilot_assignments.count %></td>
-        <td><%= warship.user&.name %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+          </div>
+
+          <div>
+            <span>Captain</span>
+            <strong><%= warship.captain&.name || "No captain" %></strong>
+          </div>
+        </div>
+
+        <div class="warship-card-meta">
+          <div>
+            <span>Passengers</span>
+            <strong><%= passenger_count %></strong>
+          </div>
+
+          <div>
+            <span>Created by</span>
+            <strong><%= warship.user&.name || "Unknown" %></strong>
+          </div>
+        </div>
+      </div>
+    </article>
+  <% end %>
+</div>
 
 <p>
   <%= link_to "New warship", new_warship_path %>
