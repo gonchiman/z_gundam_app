@@ -1,4 +1,6 @@
 class PilotCompatibilityBonus < ApplicationRecord
+  self.table_name = "pilot_compatibility_bonuses"
+
   belongs_to :source_crew_member, class_name: "CrewMember"
   belongs_to :target_crew_member, class_name: "CrewMember"
 
