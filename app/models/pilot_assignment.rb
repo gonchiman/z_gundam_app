@@ -10,6 +10,10 @@ class PilotAssignment < ApplicationRecord
     message: "はこの戦艦にすでに登録されています"
   }
 
+  def combat_power
+    crew_member.combat_power.to_i + mobile_suit&.combat_power.to_i
+  end
+
   private
 
   def crew_member_must_be_pilot_available
