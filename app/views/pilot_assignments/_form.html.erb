@@ -1,4 +1,6 @@
 <%= form_with(model: pilot_assignment) do |form| %>
+  <% can_submit = true %>
+
   <% if pilot_assignment.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(pilot_assignment.errors.count, "error") %> prohibited this pilot_assignment from being saved:</h2>
@@ -18,13 +20,21 @@
   </div>
 
   <% if pilot_assignment.new_record? %>
+    <% hired_crew_member_ids = pilot_assignment.warship.pilot_assignments.select(:crew_member_id) %>
+    <% available_crew_members = CrewMember.where(role_type: ["pilot_only", "captain_and_pilot"]).where.not(id: hired_crew_member_ids) %>
+
     <div>
       <%= form.label :crew_member_id, "Pilot", style: "display: block" %>
-      <%= form.collection_select :crew_member_id,
-        CrewMember.where(role_type: ["pilot_only", "captain_and_pilot"]),
-        :id,
-        :name
-      %>
+      <% if available_crew_members.any? %>
+        <%= form.collection_select :crew_member_id,
+          available_crew_members,
+          :id,
+          :name
+        %>
+      <% else %>
+        <% can_submit = false %>
+        <p>All available pilots have already been hired.</p>
+      <% end %>
     </div>
   <% else %>
     <div>
@@ -43,7 +53,9 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.submit %>
-  </div>
+  <% if can_submit %>
+    <div>
+      <%= form.submit %>
+    </div>
+  <% end %>
 <% end %>
