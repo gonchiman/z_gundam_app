@@ -26,7 +26,7 @@ class PilotAssignmentsController < ApplicationController
 
     respond_to do |format|
       if @pilot_assignment.save
-        format.html { redirect_to @pilot_assignment, notice: "Pilot assignment was successfully created." }
+        format.html { redirect_to @pilot_assignment.warship, notice: "Pilot assignment was successfully created." }
         format.json { render :show, status: :created, location: @pilot_assignment }
       else
         format.html { render :new, status: :unprocessable_content }
