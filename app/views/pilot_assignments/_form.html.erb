@@ -17,19 +17,31 @@
     <%= pilot_assignment.warship&.name %>
   </div>
 
-  <div>
-    <%= form.label :crew_member_id, style: "display: block" %>
-    <%= form.collection_select :crew_member_id,
-      CrewMember.where(role_type: ["pilot_only", "captain_and_pilot"]),
-      :id,
-      :name
-    %>
-  </div>
+  <% if pilot_assignment.new_record? %>
+    <div>
+      <%= form.label :crew_member_id, "Pilot", style: "display: block" %>
+      <%= form.collection_select :crew_member_id,
+        CrewMember.where(role_type: ["pilot_only", "captain_and_pilot"]),
+        :id,
+        :name
+      %>
+    </div>
+  <% else %>
+    <div>
+      <strong>Pilot:</strong>
+      <%= pilot_assignment.crew_member.name %>
+    </div>
 
-  <div>
-    <%= form.label :mobile_suit_id, style: "display: block" %>
-    <%= form.collection_select :mobile_suit_id, MobileSuit.all, :id, :name, include_blank: true %>
-  </div>
+    <div>
+      <%= form.label :mobile_suit_id, "Mobile suit", style: "display: block" %>
+      <%= form.collection_select :mobile_suit_id,
+        pilot_assignment.warship.mobile_suits,
+        :id,
+        :name,
+        include_blank: "Not assigned"
+      %>
+    </div>
+  <% end %>
 
   <div>
     <%= form.submit %>
