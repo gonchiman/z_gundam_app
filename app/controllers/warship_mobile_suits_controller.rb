@@ -1,6 +1,11 @@
 class WarshipMobileSuitsController < ApplicationController
   before_action :set_warship_mobile_suit, only: %i[ destroy ]
 
+  def new
+    @warship = Warship.find(params[:warship_id])
+    @warship_mobile_suit = WarshipMobileSuit.new(warship: @warship)
+  end
+
   def create
     permitted_params = warship_mobile_suit_params
     @warship_mobile_suit = WarshipMobileSuit.find_or_initialize_by(
