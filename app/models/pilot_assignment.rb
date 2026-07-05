@@ -50,7 +50,10 @@ class PilotAssignment < ApplicationRecord
   def hire_cost_must_fit_budget
     return if warship.blank? || crew_member.blank?
 
-    if additional_hire_cost > warship.remaining_budget
+    cost = additional_hire_cost
+    return if cost <= 0
+
+    if cost > warship.remaining_budget
       errors.add(:base, "Budget exceeded")
     end
   end
