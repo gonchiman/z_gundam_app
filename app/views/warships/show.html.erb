@@ -52,57 +52,45 @@
 
 <h2>Pilots</h2>
 
-<table>
-  <thead>
-    <tr>
-      <th>Image</th>
-      <th>Name</th>
-      <th>Rank</th>
-      <th>Mobile suit</th>
-      <th>Total power</th>
-      <th>Assign</th>
-      <th>Delete</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% if @warship.pilot_assignments.any? %>
-      <% @warship.pilot_assignments.each do |pilot_assignment| %>
-        <tr>
-          <td>
+<% if @warship.pilot_assignments.any? %>
+  <div class="selection-card-grid">
+    <% @warship.pilot_assignments.each do |pilot_assignment| %>
+      <div class="selection-card">
+        <div class="pilot-assignment-images">
+          <div class="selection-card-image">
             <% if pilot_assignment.crew_member.image.attached? %>
               <%= link_to pilot_assignment.crew_member do %>
-                <%= image_tag pilot_assignment.crew_member.image, width: 100 %>
+                <%= image_tag pilot_assignment.crew_member.image %>
               <% end %>
             <% else %>
-              No image
+              <span>No pilot image</span>
             <% end %>
-          </td>
-          <td><%= pilot_assignment.crew_member.name %></td>
-          <td><%= pilot_assignment.crew_member.rank %></td>
-          <td>
+          </div>
+
+          <div class="selection-card-image">
             <% if pilot_assignment.mobile_suit.present? && pilot_assignment.mobile_suit.image.attached? %>
-              <%= image_tag pilot_assignment.mobile_suit.image, width: 100 %>
+              <%= link_to pilot_assignment.mobile_suit do %>
+                <%= image_tag pilot_assignment.mobile_suit.image %>
+              <% end %>
             <% elsif pilot_assignment.mobile_suit.present? %>
-              <%= pilot_assignment.mobile_suit.name %>
+              <span><%= pilot_assignment.mobile_suit.name %></span>
             <% else %>
-              Not assigned
+              <span>Not assigned</span>
             <% end %>
-          </td>
-          <td><%= pilot_assignment.combat_power %></td>
-          <td><%= link_to "Assign", edit_pilot_assignment_path(pilot_assignment) %></td>
-          <td>
-            <%= button_to "Delete", pilot_assignment_path(pilot_assignment), method: :delete %>
-          </td>
-        </tr>
-      <% end %>
-    <% else %>
-      <tr>
-        <td colspan="8">No pilots hired</td>
-      </tr>
+          </div>
+        </div>
+
+        <div class="selection-card-body">
+          <p>Total power: <%= pilot_assignment.combat_power %></p>
+          <p><%= link_to "Assign", edit_pilot_assignment_path(pilot_assignment) %></p>
+          <%= button_to "Delete", pilot_assignment_path(pilot_assignment), method: :delete %>
+        </div>
+      </div>
     <% end %>
-  </tbody>
-</table>
+  </div>
+<% else %>
+  <p>No pilots hired</p>
+<% end %>
 
 <%= link_to "Hire pilot", new_pilot_assignment_path(warship_id: @warship.id) %>
 
