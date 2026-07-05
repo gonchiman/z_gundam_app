@@ -1,25 +1,25 @@
-<%= form_with(model: pilot_assignment) do |form| %>
-  <% can_submit = true %>
+<% if pilot_assignment.errors.any? %>
+  <div style="color: red">
+    <h2><%= pluralize(pilot_assignment.errors.count, "error") %> prohibited this pilot_assignment from being saved:</h2>
 
-  <% if pilot_assignment.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(pilot_assignment.errors.count, "error") %> prohibited this pilot_assignment from being saved:</h2>
-
-      <ul>
-        <% pilot_assignment.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div>
-    <%= form.label :warship_id, style: "display: block" %>
-    <%= form.hidden_field :warship_id %>
-    <%= pilot_assignment.warship&.name || "No warship selected" %>
+    <ul>
+      <% pilot_assignment.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
   </div>
+<% end %>
 
-  <% if pilot_assignment.new_record? %>
+<% if pilot_assignment.new_record? %>
+  <%= form_with(model: pilot_assignment) do |form| %>
+    <% can_submit = true %>
+
+    <div>
+      <%= form.label :warship_id, style: "display: block" %>
+      <%= form.hidden_field :warship_id %>
+      <%= pilot_assignment.warship&.name || "No warship selected" %>
+    </div>
+
     <% if pilot_assignment.warship.present? %>
       <% hired_crew_member_ids = pilot_assignment.warship.pilot_assignments.select(:crew_member_id) %>
       <% available_crew_members = CrewMember.where(role_type: ["pilot_only", "captain_and_pilot"]).where.not(id: hired_crew_member_ids) %>
@@ -41,31 +41,72 @@
       <% can_submit = false %>
       <p>Please start from a warship page.</p>
     <% end %>
-  <% else %>
-    <div>
-      <strong>Pilot:</strong>
-      <%= pilot_assignment.crew_member.name %>
-    </div>
 
-    <% available_mobile_suits = pilot_assignment.warship.warship_mobile_suits.select do |warship_mobile_suit| %>
-      <% assigned_count = pilot_assignment.warship.pilot_assignments.where(mobile_suit_id: warship_mobile_suit.mobile_suit_id).where.not(id: pilot_assignment.id).count %>
-      <% assigned_count < warship_mobile_suit.quantity %>
-    <% end.map(&:mobile_suit) %>
-
-    <div>
-      <%= form.label :mobile_suit_id, "Mobile suit", style: "display: block" %>
-      <%= form.collection_select :mobile_suit_id,
-        available_mobile_suits,
-        :id,
-        :name,
-        include_blank: "Not assigned"
-      %>
-    </div>
+    <% if can_submit %>
+      <div>
+        <%= form.submit %>
+      </div>
+    <% end %>
   <% end %>
+<% else %>
+  <div>
+    <strong>Warship:</strong>
+    <%= pilot_assignment.warship&.name || "No warship selected" %>
+  </div>
 
-  <% if can_submit %>
-    <div>
-      <%= form.submit %>
+  <div>
+    <strong>Pilot:</strong>
+    <%= pilot_assignment.crew_member.name %>
+  </div>
+
+  <% available_mobile_suits = pilot_assignment.warship.warship_mobile_suits.select do |warship_mobile_suit| %>
+    <% assigned_count = pilot_assignment.warship.pilot_assignments.where(mobile_suit_id: warship_mobile_suit.mobile_suit_id).where.not(id: pilot_assignment.id).count %>
+    <% assigned_count < warship_mobile_suit.quantity %>
+  <% end.map(&:mobile_suit) %>
+
+  <h2>Mobile suit</h2>
+
+  <div class="selection-card-grid">
+    <div class="selection-card">
+      <div class="selection-card-image">
+        <%= button_to pilot_assignment_path(pilot_assignment),
+          method: :patch,
+          params: { pilot_assignment: { mobile_suit_id: "" } },
+          class: "selection-card-image-button" do %>
+          <span>Not assigned</span>
+        <% end %>
+      </div>
+
+      <div class="selection-card-body">
+        <h2>Not assigned</h2>
+        <% if pilot_assignment.mobile_suit.blank? %>
+          <p>Selected</p>
+        <% end %>
+      </div>
     </div>
-  <% end %>
+
+    <% available_mobile_suits.each do |mobile_suit| %>
+      <div class="selection-card">
+        <div class="selection-card-image">
+          <%= button_to pilot_assignment_path(pilot_assignment),
+            method: :patch,
+            params: { pilot_assignment: { mobile_suit_id: mobile_suit.id } },
+            class: "selection-card-image-button" do %>
+            <% if mobile_suit.image.attached? %>
+              <%= image_tag mobile_suit.image %>
+            <% else %>
+              <span>No image</span>
+            <% end %>
+          <% end %>
+        </div>
+
+        <div class="selection-card-body">
+          <h2><%= mobile_suit.name %></h2>
+          <% if pilot_assignment.mobile_suit_id == mobile_suit.id %>
+            <p>Selected</p>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 <% end %>
