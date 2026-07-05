@@ -15,6 +15,30 @@ class Warship < ApplicationRecord
     pilot_assignments.includes(:crew_member, :mobile_suit).sum(&:combat_power)
   end
 
+  def captain_cost
+    captain&.hire_cost.to_i
+  end
+
+  def pilot_cost
+    pilot_assignments.includes(:crew_member).sum do |pilot_assignment|
+      pilot_assignment.crew_member.hire_cost.to_i
+    end
+  end
+
+  def mobile_suit_cost
+    warship_mobile_suits.includes(:mobile_suit).sum do |warship_mobile_suit|
+      warship_mobile_suit.mobile_suit.purchase_cost.to_i * warship_mobile_suit.quantity.to_i
+    end
+  end
+
+  def total_cost
+    captain_cost + pilot_cost + mobile_suit_cost
+  end
+
+  def remaining_budget
+    budget.to_i - total_cost
+  end
+
   private
 
   def captain_must_be_available
