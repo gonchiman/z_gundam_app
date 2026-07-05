@@ -164,6 +164,22 @@ h2 {
   object-fit: cover;
 }
 
+.selection-card-image a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.pilot-assignment-images {
+  display: grid;
+  gap: 1px;
+  background-color: #cccccc;
+}
+
+.pilot-assignment-images .selection-card-image {
+  aspect-ratio: 4 / 3;
+}
+
 .selection-card-body {
   padding: 10px;
 }
