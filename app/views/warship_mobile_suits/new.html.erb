@@ -38,7 +38,6 @@
       <div class="selection-card-body">
         <h2><%= mobile_suit.name %></h2>
         <p>Cost: <%= number_to_currency(mobile_suit.purchase_cost, unit: "$", precision: 0) %></p>
-        <p>Power: <%= mobile_suit.combat_power.to_i %></p>
 
         <% if over_budget %>
           <p class="selection-card-warning">Budget exceeded</p>
