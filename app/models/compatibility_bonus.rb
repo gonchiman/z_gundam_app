@@ -1,4 +1,6 @@
 class CompatibilityBonus < ApplicationRecord
+  self.table_name = "compatibility_bonuses"
+
   belongs_to :crew_member
   belongs_to :mobile_suit
 
