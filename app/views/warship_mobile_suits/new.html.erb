@@ -1,17 +1,64 @@
 <h1>Buy mobile suit</h1>
 
-<%= form_with(model: @warship_mobile_suit) do |form| %>
-  <%= form.hidden_field :warship_id, value: @warship.id %>
+<% if @warship_mobile_suit.errors.any? %>
+  <div style="color: red">
+    <h2><%= pluralize(@warship_mobile_suit.errors.count, "error") %> prohibited this mobile suit from being purchased:</h2>
 
-  <div>
-    <%= form.label :mobile_suit_id, "Mobile suit", style: "display: block" %>
-    <%= form.collection_select :mobile_suit_id, MobileSuit.all, :id, :name %>
-  </div>
-
-  <div>
-    <%= form.submit "Buy mobile suit" %>
+    <ul>
+      <% @warship_mobile_suit.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
   </div>
 <% end %>
+
+<p>
+  <strong>Warship:</strong>
+  <%= @warship.name %>
+</p>
+
+<p>
+  <strong>Remaining budget:</strong>
+  <%= number_to_currency(@warship.remaining_budget, unit: "$", precision: 0) %>
+</p>
+
+<div class="selection-card-grid">
+  <% @mobile_suits.each do |mobile_suit| %>
+    <% over_budget = mobile_suit.purchase_cost.to_i > @warship.remaining_budget %>
+
+    <div class="selection-card">
+      <div class="selection-card-image">
+        <% if mobile_suit.image.attached? %>
+          <%= image_tag mobile_suit.image %>
+        <% else %>
+          <span>No image</span>
+        <% end %>
+      </div>
+
+      <div class="selection-card-body">
+        <h2><%= mobile_suit.name %></h2>
+        <p>Cost: <%= number_to_currency(mobile_suit.purchase_cost, unit: "$", precision: 0) %></p>
+        <p>Power: <%= mobile_suit.combat_power.to_i %></p>
+
+        <% if over_budget %>
+          <p class="selection-card-warning">Budget exceeded</p>
+        <% end %>
+
+        <%= button_to "Buy",
+          warship_mobile_suits_path,
+          method: :post,
+          params: {
+            warship_mobile_suit: {
+              warship_id: @warship.id,
+              mobile_suit_id: mobile_suit.id
+            }
+          },
+          disabled: over_budget
+        %>
+      </div>
+    </div>
+  <% end %>
+</div>
 
 <div>
   <%= link_to "Back to warship", @warship %>
