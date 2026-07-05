@@ -4,7 +4,6 @@ class CreateCompatibilityBonuses < ActiveRecord::Migration[8.1]
       t.references :crew_member, null: false, foreign_key: true
       t.references :mobile_suit, null: false, foreign_key: true
       t.integer :bonus_power, null: false, default: 0
-      t.string :description
 
       t.timestamps
     end
