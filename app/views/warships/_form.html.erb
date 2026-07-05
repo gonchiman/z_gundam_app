@@ -42,7 +42,8 @@
 <% end %>
 
 <% unless warship.new_record? %>
-  <% captains = CrewMember.where(role_type: ["captain_only", "captain_and_pilot"]).order(:name) %>
+  <% pilot_crew_member_ids = warship.pilot_assignments.select(:crew_member_id) %>
+  <% captains = CrewMember.where(role_type: ["captain_only", "captain_and_pilot"]).where.not(id: pilot_crew_member_ids).order(:name) %>
 
   <h2>Captain</h2>
 
