@@ -60,8 +60,6 @@
       <th>Gender</th>
       <th>Rank</th>
       <th>Mobile suit</th>
-      <th>Pilot power</th>
-      <th>Mobile suit power</th>
       <th>Total power</th>
       <th>Assign</th>
       <th>Delete</th>
@@ -93,8 +91,6 @@
               Not assigned
             <% end %>
           </td>
-          <td><%= pilot_assignment.crew_member.combat_power.to_i %></td>
-          <td><%= (pilot_assignment.mobile_suit&.combat_power || 0).to_i %></td>
           <td><%= pilot_assignment.combat_power %></td>
           <td><%= link_to "Assign", edit_pilot_assignment_path(pilot_assignment) %></td>
           <td>
@@ -104,7 +100,7 @@
       <% end %>
     <% else %>
       <tr>
-        <td colspan="10">No pilots hired</td>
+        <td colspan="8">No pilots hired</td>
       </tr>
     <% end %>
   </tbody>
