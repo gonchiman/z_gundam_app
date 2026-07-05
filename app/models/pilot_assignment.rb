@@ -11,7 +11,7 @@ class PilotAssignment < ApplicationRecord
   }
 
   def combat_power
-    crew_member.combat_power.to_i + mobile_suit&.combat_power.to_i
+    crew_member.combat_power.to_i + (mobile_suit&.combat_power || 0).to_i
   end
 
   private
