@@ -41,7 +41,6 @@ CSV.foreach(Rails.root.join("db/csv/compatibility_bonuses.csv"), headers: true, 
   )
 
   compatibility_bonus.bonus_power = row["bonus_power"].to_i
-  compatibility_bonus.description = row["description"]
 
   compatibility_bonus.save!
 end
