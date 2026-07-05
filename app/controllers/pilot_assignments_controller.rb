@@ -13,7 +13,8 @@ class PilotAssignmentsController < ApplicationController
 
   # GET /pilot_assignments/new
   def new
-  @pilot_assignment = PilotAssignment.new(warship_id: params[:warship_id])
+    @pilot_assignment = PilotAssignment.new(warship_id: params[:warship_id])
+    set_hire_pilot_page_data
   end
 
   # GET /pilot_assignments/1/edit
@@ -29,6 +30,7 @@ class PilotAssignmentsController < ApplicationController
         format.html { redirect_to @pilot_assignment.warship, notice: "Pilot was successfully hired." }
         format.json { render :show, status: :created, location: @pilot_assignment }
       else
+        set_hire_pilot_page_data
         format.html { render :new, status: :unprocessable_content }
         format.json { render json: @pilot_assignment.errors, status: :unprocessable_content }
       end
@@ -68,5 +70,16 @@ class PilotAssignmentsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def pilot_assignment_params
       params.expect(pilot_assignment: [ :warship_id, :crew_member_id, :mobile_suit_id ])
+    end
+
+    def set_hire_pilot_page_data
+      @warship = @pilot_assignment.warship
+      return if @warship.blank?
+
+      hired_crew_member_ids = @warship.pilot_assignments.select(:crew_member_id)
+      @available_crew_members = CrewMember
+        .where(role_type: ["pilot_only", "captain_and_pilot"])
+        .where.not(id: hired_crew_member_ids)
+        .order(:name)
     end
 end
