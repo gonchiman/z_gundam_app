@@ -13,7 +13,8 @@
 
   <div>
     <%= form.label :warship_id, style: "display: block" %>
-    <%= form.collection_select :warship_id, Warship.all, :id, :name %>
+    <%= form.hidden_field :warship_id %>
+    <%= pilot_assignment.warship&.name %>
   </div>
 
   <div>
