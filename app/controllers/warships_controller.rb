@@ -8,7 +8,7 @@ class WarshipsController < ApplicationController
     @warships = Warship.all
   end
 
-  # GET /warships/1 or /warships/1.json
+  # GET /warships/1 or /warships.json
   def show
   end
 
@@ -70,7 +70,7 @@ class WarshipsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def warship_params
-      params.expect(warship: [ :name, :captain_id, :image, :main_image ])
+      params.expect(warship: [ :name, :captain_id, :budget, :image, :main_image ])
     end
 
     def check_owner
