@@ -69,20 +69,19 @@
 
           <div class="selection-card-image">
             <% if pilot_assignment.mobile_suit.present? && pilot_assignment.mobile_suit.image.attached? %>
-              <%= link_to pilot_assignment.mobile_suit do %>
+              <%= link_to edit_pilot_assignment_path(pilot_assignment) do %>
                 <%= image_tag pilot_assignment.mobile_suit.image %>
               <% end %>
             <% elsif pilot_assignment.mobile_suit.present? %>
-              <span><%= pilot_assignment.mobile_suit.name %></span>
+              <%= link_to pilot_assignment.mobile_suit.name, edit_pilot_assignment_path(pilot_assignment) %>
             <% else %>
-              <span>Not assigned</span>
+              <%= link_to "Not assigned", edit_pilot_assignment_path(pilot_assignment) %>
             <% end %>
           </div>
         </div>
 
         <div class="selection-card-body">
           <p>Total power: <%= pilot_assignment.combat_power %></p>
-          <p><%= link_to "Assign", edit_pilot_assignment_path(pilot_assignment) %></p>
           <%= button_to "Delete", pilot_assignment_path(pilot_assignment), method: :delete %>
         </div>
       </div>
