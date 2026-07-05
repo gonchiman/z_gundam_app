@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_29_081904) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_05_060000) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -83,6 +83,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_29_081904) do
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 
+  create_table "warship_mobile_suits", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "mobile_suit_id", null: false
+    t.datetime "updated_at", null: false
+    t.integer "warship_id", null: false
+    t.index ["mobile_suit_id"], name: "index_warship_mobile_suits_on_mobile_suit_id"
+    t.index ["warship_id", "mobile_suit_id"], name: "index_warship_mobile_suits_on_warship_id_and_mobile_suit_id", unique: true
+    t.index ["warship_id"], name: "index_warship_mobile_suits_on_warship_id"
+  end
+
   create_table "warships", force: :cascade do |t|
     t.integer "captain_id"
     t.datetime "created_at", null: false
@@ -97,5 +107,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_29_081904) do
   add_foreign_key "pilot_assignments", "crew_members"
   add_foreign_key "pilot_assignments", "warships"
   add_foreign_key "sessions", "users"
+  add_foreign_key "warship_mobile_suits", "mobile_suits"
+  add_foreign_key "warship_mobile_suits", "warships"
   add_foreign_key "warships", "users"
 end
