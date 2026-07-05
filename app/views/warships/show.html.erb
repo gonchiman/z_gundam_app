@@ -87,7 +87,6 @@
     <tr>
       <th>Image</th>
       <th>Name</th>
-      <th>Gender</th>
       <th>Rank</th>
       <th>Mobile suit</th>
       <th>Total power</th>
@@ -110,7 +109,6 @@
             <% end %>
           </td>
           <td><%= pilot_assignment.crew_member.name %></td>
-          <td><%= pilot_assignment.crew_member.gender %></td>
           <td><%= pilot_assignment.crew_member.rank %></td>
           <td>
             <% if pilot_assignment.mobile_suit.present? && pilot_assignment.mobile_suit.image.attached? %>
