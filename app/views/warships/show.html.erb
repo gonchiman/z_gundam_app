@@ -94,7 +94,7 @@
             <% end %>
           </td>
           <td><%= pilot_assignment.crew_member.combat_power.to_i %></td>
-          <td><%= pilot_assignment.mobile_suit&.combat_power.to_i %></td>
+          <td><%= (pilot_assignment.mobile_suit&.combat_power || 0).to_i %></td>
           <td><%= pilot_assignment.combat_power %></td>
           <td><%= link_to "Assign", edit_pilot_assignment_path(pilot_assignment) %></td>
           <td>
