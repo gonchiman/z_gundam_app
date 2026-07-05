@@ -4,6 +4,10 @@ class PilotAssignment < ApplicationRecord
   belongs_to :mobile_suit, optional: true
 
   validate :crew_member_must_be_pilot_available
+  validates :crew_member_id, uniqueness: {
+    scope: :warship_id,
+    message: "はこの戦艦にすでに登録されています"
+  }
 
   private
 
