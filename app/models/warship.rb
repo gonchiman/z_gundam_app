@@ -13,6 +13,14 @@ class Warship < ApplicationRecord
   validate :captain_must_not_be_pilot
   validate :total_cost_must_not_exceed_budget
 
+  def display_image
+    return captain.captain_warship_image if captain&.captain_warship_image&.attached?
+    return main_image if main_image.attached?
+    return image if image.attached?
+
+    nil
+  end
+
   def total_combat_power
     pilot_assignments.includes(:crew_member, :mobile_suit).sum(&:combat_power)
   end
