@@ -1,6 +1,6 @@
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
-# incrementally modify this file.
+# incrementally modify your database, and then regenerate this schema definition.
 #
 # This file is the source Rails uses to define your schema when running `bin/rails
 # db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_05_102000) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_05_103000) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -37,6 +37,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_05_102000) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "captain_compatibility_bonuses", force: :cascade do |t|
+    t.integer "bonus_power", default: 0, null: false
+    t.integer "captain_crew_member_id", null: false
+    t.datetime "created_at", null: false
+    t.integer "target_crew_member_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["captain_crew_member_id", "target_crew_member_id"], name: "index_captain_compatibility_bonuses_on_captain_and_target", unique: true
+    t.index ["captain_crew_member_id"], name: "index_captain_compatibility_bonuses_on_captain_crew_member_id"
+    t.index ["target_crew_member_id"], name: "index_captain_compatibility_bonuses_on_target_crew_member_id"
   end
 
   create_table "compatibility_bonuses", force: :cascade do |t|
@@ -132,6 +143,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_05_102000) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "captain_compatibility_bonuses", "crew_members", column: "captain_crew_member_id"
+  add_foreign_key "captain_compatibility_bonuses", "crew_members", column: "target_crew_member_id"
   add_foreign_key "compatibility_bonuses", "crew_members"
   add_foreign_key "compatibility_bonuses", "mobile_suits"
   add_foreign_key "pilot_assignments", "crew_members"
