@@ -10,6 +10,7 @@ class Warship < ApplicationRecord
   has_one_attached :main_image  # 詳細ページ用
 
   validate :captain_must_be_available
+  validate :captain_must_not_be_pilot
   validate :total_cost_must_not_exceed_budget
 
   def total_combat_power
@@ -47,6 +48,14 @@ class Warship < ApplicationRecord
 
     unless captain.role_type == "captain_only" || captain.role_type == "captain_and_pilot"
       errors.add(:captain_id, "must be captain available")
+    end
+  end
+
+  def captain_must_not_be_pilot
+    return if captain_id.blank?
+
+    if pilot_assignments.where(crew_member_id: captain_id).exists?
+      errors.add(:captain_id, "cannot also be a pilot")
     end
   end
 
