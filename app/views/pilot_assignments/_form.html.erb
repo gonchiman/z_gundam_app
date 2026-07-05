@@ -47,10 +47,15 @@
       <%= pilot_assignment.crew_member.name %>
     </div>
 
+    <% available_mobile_suits = pilot_assignment.warship.warship_mobile_suits.select do |warship_mobile_suit| %>
+      <% assigned_count = pilot_assignment.warship.pilot_assignments.where(mobile_suit_id: warship_mobile_suit.mobile_suit_id).where.not(id: pilot_assignment.id).count %>
+      <% assigned_count < warship_mobile_suit.quantity %>
+    <% end.map(&:mobile_suit) %>
+
     <div>
       <%= form.label :mobile_suit_id, "Mobile suit", style: "display: block" %>
       <%= form.collection_select :mobile_suit_id,
-        pilot_assignment.warship.mobile_suits,
+        available_mobile_suits,
         :id,
         :name,
         include_blank: "Not assigned"

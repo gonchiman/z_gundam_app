@@ -46,7 +46,9 @@
     <tr>
       <th>Image</th>
       <th>Name</th>
-      <th>Delete</th>
+      <th>Quantity</th>
+      <th>Assigned</th>
+      <th>Decrease</th>
     </tr>
   </thead>
 
@@ -64,14 +66,16 @@
             <% end %>
           </td>
           <td><%= warship_mobile_suit.mobile_suit.name %></td>
+          <td><%= warship_mobile_suit.quantity %></td>
+          <td><%= @warship.pilot_assignments.where(mobile_suit_id: warship_mobile_suit.mobile_suit_id).count %></td>
           <td>
-            <%= button_to "Delete", warship_mobile_suit_path(warship_mobile_suit), method: :delete %>
+            <%= button_to "Decrease", warship_mobile_suit_path(warship_mobile_suit), method: :delete %>
           </td>
         </tr>
       <% end %>
     <% else %>
       <tr>
-        <td colspan="3">No mobile suits purchased</td>
+        <td colspan="5">No mobile suits purchased</td>
       </tr>
     <% end %>
   </tbody>
@@ -79,15 +83,10 @@
 
 <h3>Buy mobile suit</h3>
 
-<% available_mobile_suits = MobileSuit.where.not(id: @warship.mobile_suit_ids) %>
-<% if available_mobile_suits.any? %>
-  <%= form_with(model: WarshipMobileSuit.new) do |form| %>
-    <%= form.hidden_field :warship_id, value: @warship.id %>
-    <%= form.collection_select :mobile_suit_id, available_mobile_suits, :id, :name %>
-    <%= form.submit "Buy mobile suit" %>
-  <% end %>
-<% else %>
-  <p>All mobile suits have already been purchased.</p>
+<%= form_with(model: WarshipMobileSuit.new) do |form| %>
+  <%= form.hidden_field :warship_id, value: @warship.id %>
+  <%= form.collection_select :mobile_suit_id, MobileSuit.all, :id, :name %>
+  <%= form.submit "Buy mobile suit" %>
 <% end %>
 
 <h2>Hired pilots</h2>

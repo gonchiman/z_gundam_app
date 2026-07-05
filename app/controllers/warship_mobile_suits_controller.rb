@@ -3,7 +3,11 @@ class WarshipMobileSuitsController < ApplicationController
 
   def create
     permitted_params = warship_mobile_suit_params
-    @warship_mobile_suit = WarshipMobileSuit.new(permitted_params)
+    @warship_mobile_suit = WarshipMobileSuit.find_or_initialize_by(
+      warship_id: permitted_params[:warship_id],
+      mobile_suit_id: permitted_params[:mobile_suit_id]
+    )
+    @warship_mobile_suit.quantity = @warship_mobile_suit.persisted? ? @warship_mobile_suit.quantity + 1 : 1
 
     respond_to do |format|
       if @warship_mobile_suit.save
@@ -19,12 +23,21 @@ class WarshipMobileSuitsController < ApplicationController
 
   def destroy
     warship = @warship_mobile_suit.warship
-    warship.pilot_assignments.where(mobile_suit_id: @warship_mobile_suit.mobile_suit_id).update_all(mobile_suit_id: nil)
-    @warship_mobile_suit.destroy!
+    assigned_count = warship.pilot_assignments.where(mobile_suit_id: @warship_mobile_suit.mobile_suit_id).count
 
     respond_to do |format|
-      format.html { redirect_to warship, notice: "Mobile suit was successfully removed.", status: :see_other }
-      format.json { head :no_content }
+      if assigned_count >= @warship_mobile_suit.quantity
+        format.html { redirect_to warship, alert: "This mobile suit is assigned to a pilot.", status: :see_other }
+        format.json { render json: { error: "mobile suit is assigned" }, status: :unprocessable_content }
+      elsif @warship_mobile_suit.quantity > 1
+        @warship_mobile_suit.update!(quantity: @warship_mobile_suit.quantity - 1)
+        format.html { redirect_to warship, notice: "Mobile suit quantity was successfully decreased.", status: :see_other }
+        format.json { head :no_content }
+      else
+        @warship_mobile_suit.destroy!
+        format.html { redirect_to warship, notice: "Mobile suit was successfully removed.", status: :see_other }
+        format.json { head :no_content }
+      end
     end
   end
 
