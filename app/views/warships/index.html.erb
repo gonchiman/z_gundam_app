@@ -5,13 +5,12 @@
 <div class="warship-card-grid">
   <% @warships.each do |warship| %>
     <% passenger_count = warship.pilot_assignments.count + (warship.captain.present? ? 1 : 0) %>
+    <% warship_image = warship.display_image %>
 
     <article class="warship-card">
       <%= link_to warship, class: "warship-card-main-image" do %>
-        <% if warship.main_image.attached? %>
-          <%= image_tag warship.main_image %>
-        <% elsif warship.image.attached? %>
-          <%= image_tag warship.image %>
+        <% if warship_image.present? %>
+          <%= image_tag warship_image %>
         <% else %>
           <span>No image</span>
         <% end %>
