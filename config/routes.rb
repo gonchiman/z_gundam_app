@@ -6,13 +6,14 @@ Rails.application.routes.draw do
   root "home#index"
 
   get "home/index"
+  resources :warship_mobile_suits, only: [:create, :destroy]
   resources :pilot_assignments
   resources :mobile_suits
   resources :warships
   resources :crew_members
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
+  # Reveal health status on /up that returns 200 if the app boots or 500 if it does not.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 
