@@ -97,7 +97,8 @@
   <p>No pilots hired</p>
 <% end %>
 
-<%= link_to "Hire pilot", new_pilot_assignment_path(warship_id: @warship.id) %>
+<%= link_to "Hire pilot", new_pilot_assignment_path(warship_id: @warship.id) %> |
+<%= link_to "Buy mobile suit", new_warship_mobile_suit_path(warship_id: @warship.id) %>
 
 <h2>Mobile suits</h2>
 
@@ -140,8 +141,6 @@
     <% end %>
   </tbody>
 </table>
-
-<%= link_to "Buy mobile suit", new_warship_mobile_suit_path(warship_id: @warship.id) %>
 
 <div>
   <%= link_to "Edit this warship", edit_warship_path(@warship) %> |
