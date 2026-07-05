@@ -5,6 +5,7 @@ class PilotAssignment < ApplicationRecord
 
   validate :crew_member_must_be_pilot_available
   validate :mobile_suit_must_be_available_for_warship
+  validate :hire_cost_must_fit_budget
   validates :crew_member_id, uniqueness: {
     scope: :warship_id,
     message: "はこの戦艦にすでに登録されています"
@@ -44,5 +45,18 @@ class PilotAssignment < ApplicationRecord
     if assigned_count >= warship_mobile_suit.quantity
       errors.add(:mobile_suit_id, "is not available")
     end
+  end
+
+  def hire_cost_must_fit_budget
+    return if warship.blank? || crew_member.blank?
+
+    if additional_hire_cost > warship.remaining_budget
+      errors.add(:base, "Budget exceeded")
+    end
+  end
+
+  def additional_hire_cost
+    previous_crew_member = CrewMember.find_by(id: crew_member_id_in_database)
+    crew_member.hire_cost.to_i - previous_crew_member&.hire_cost.to_i
   end
 end
