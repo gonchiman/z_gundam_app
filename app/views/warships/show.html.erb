@@ -3,10 +3,12 @@
 
 <h1>Warship information</h1>
 
+<% warship_image = @warship.display_image %>
+
 <section class="warship-summary">
   <div class="warship-summary-image">
-    <% if @warship.main_image.attached? %>
-      <%= image_tag @warship.main_image %>
+    <% if warship_image.present? %>
+      <%= image_tag warship_image %>
     <% else %>
       <span>No main image</span>
     <% end %>
