@@ -18,7 +18,8 @@ class PilotAssignment < ApplicationRecord
     crew_member.combat_power.to_i +
       mobile_suit.combat_power.to_i +
       compatibility_bonus_power +
-      pilot_compatibility_bonus_power
+      pilot_compatibility_bonus_power +
+      captain_compatibility_bonus_power
   end
 
   def compatibility_bonus_power
@@ -40,6 +41,15 @@ class PilotAssignment < ApplicationRecord
     PilotCompatibilityBonus
       .where(target_crew_member_id: crew_member_id, source_crew_member_id: source_crew_member_ids)
       .sum(:bonus_power)
+  end
+
+  def captain_compatibility_bonus_power
+    return 0 if warship.blank? || crew_member.blank? || warship.captain.blank?
+
+    CaptainCompatibilityBonus.find_by(
+      captain_crew_member_id: warship.captain_id,
+      target_crew_member_id: crew_member_id
+    )&.bonus_power.to_i
   end
 
   private
