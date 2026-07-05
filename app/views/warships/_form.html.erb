@@ -17,6 +17,11 @@
   </div>
 
   <div>
+    <%= form.label :budget, "Budget", style: "display: block" %>
+    <%= form.number_field :budget %>
+  </div>
+
+  <div>
     <%= form.label :captain_id, style: "display: block" %>
     <%= form.collection_select :captain_id,
       CrewMember.where(role_type: ["captain_only", "captain_and_pilot"]),
