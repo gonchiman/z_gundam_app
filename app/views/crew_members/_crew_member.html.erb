@@ -1,5 +1,23 @@
 <div id="<%= dom_id crew_member %>">
   <div>
+    <strong>Image:</strong>
+    <% if crew_member.image.attached? %>
+      <%= image_tag crew_member.image, width: 160 %>
+    <% else %>
+      No image
+    <% end %>
+  </div>
+
+  <div>
+    <strong>Captain warship image:</strong>
+    <% if crew_member.captain_warship_image.attached? %>
+      <%= image_tag crew_member.captain_warship_image, width: 320 %>
+    <% else %>
+      No captain warship image
+    <% end %>
+  </div>
+
+  <div>
     <strong>Name:</strong>
     <%= crew_member.name %>
   </div>
