@@ -7,3 +7,17 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+require "csv"
+
+CSV.foreach(Rails.root.join("db/csv/crew_members.csv"), headers: true, encoding: "bom|utf-8") do |row|
+  crew_member = CrewMember.find_or_initialize_by(name: row["name"])
+
+  crew_member.gender = row["gender"]
+  crew_member.rank = row["rank"]
+  crew_member.role_type = row["role_type"]
+  crew_member.hire_cost = row["hire_cost"]
+  crew_member.combat_power = row["combat_power"]
+
+  crew_member.save!
+end
