@@ -50,10 +50,11 @@ class PilotAssignmentsController < ApplicationController
 
   # DELETE /pilot_assignments/1 or /pilot_assignments/1.json
   def destroy
+    warship = @pilot_assignment.warship
     @pilot_assignment.destroy!
 
     respond_to do |format|
-      format.html { redirect_to pilot_assignments_path, notice: "Pilot assignment was successfully destroyed.", status: :see_other }
+      format.html { redirect_to warship, notice: "Pilot assignment was successfully destroyed.", status: :see_other }
       format.json { head :no_content }
     end
   end
