@@ -1,54 +1,60 @@
 <p style="color: green"><%= notice %></p>
 <p style="color: red"><%= alert %></p>
 
-<h1><%= @warship.name %></h1>
+<h1>Warship information</h1>
 
-<% if @warship.main_image.attached? %>
-  <div>
-    <%= image_tag @warship.main_image, width: 600 %>
-  </div>
-<% else %>
-  <p>No main image</p>
-<% end %>
-
-<h2>Total combat power</h2>
-<p><%= @warship.total_combat_power %></p>
-
-<h2>Captain</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th>Image</th>
-      <th>Name</th>
-      <th>Gender</th>
-      <th>Rank</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% if @warship.captain.present? %>
-      <tr>
-        <td>
-          <% if @warship.captain.image.attached? %>
-            <%= link_to @warship.captain do %>
-              <%= image_tag @warship.captain.image, width: 100 %>
-            <% end %>
-          <% else %>
-            No image
-          <% end %>
-        </td>
-        <td><%= @warship.captain.name %></td>
-        <td><%= @warship.captain.gender %></td>
-        <td><%= @warship.captain.rank %></td>
-      </tr>
+<section class="warship-summary">
+  <div class="warship-summary-image">
+    <% if @warship.main_image.attached? %>
+      <%= image_tag @warship.main_image %>
     <% else %>
-      <tr>
-        <td colspan="4">No captain</td>
-      </tr>
+      <span>No main image</span>
     <% end %>
-  </tbody>
-</table>
+  </div>
+
+  <div class="warship-summary-content">
+    <h2><%= @warship.name %></h2>
+
+    <div class="warship-summary-grid">
+      <div class="warship-summary-item">
+        <span>Total power</span>
+        <strong><%= @warship.total_combat_power %></strong>
+      </div>
+
+      <div class="warship-summary-item">
+        <span>Total budget</span>
+        <strong><%= number_to_currency(@warship.budget, unit: "$", precision: 0) %></strong>
+      </div>
+
+      <div class="warship-summary-item">
+        <span>Used budget</span>
+        <strong><%= number_to_currency(@warship.total_cost, unit: "$", precision: 0) %></strong>
+      </div>
+
+      <div class="warship-summary-item">
+        <span>Remaining budget</span>
+        <strong><%= number_to_currency(@warship.remaining_budget, unit: "$", precision: 0) %></strong>
+      </div>
+    </div>
+
+    <div class="warship-summary-captain">
+      <div class="warship-summary-captain-image">
+        <% if @warship.captain.present? && @warship.captain.image.attached? %>
+          <%= link_to @warship.captain do %>
+            <%= image_tag @warship.captain.image %>
+          <% end %>
+        <% else %>
+          <span>No captain image</span>
+        <% end %>
+      </div>
+
+      <div>
+        <span>Captain</span>
+        <strong><%= @warship.captain&.name || "No captain" %></strong>
+      </div>
+    </div>
+  </div>
+</section>
 
 <h2>Pilots</h2>
 
@@ -136,36 +142,6 @@
 </table>
 
 <%= link_to "Buy mobile suit", new_warship_mobile_suit_path(warship_id: @warship.id) %>
-
-<h2>Budget</h2>
-<table>
-  <tbody>
-    <tr>
-      <th>Budget</th>
-      <td><%= number_to_currency(@warship.budget, unit: "$", precision: 0) %></td>
-    </tr>
-    <tr>
-      <th>Captain cost</th>
-      <td><%= number_to_currency(@warship.captain_cost, unit: "$", precision: 0) %></td>
-    </tr>
-    <tr>
-      <th>Pilot cost</th>
-      <td><%= number_to_currency(@warship.pilot_cost, unit: "$", precision: 0) %></td>
-    </tr>
-    <tr>
-      <th>Mobile suit cost</th>
-      <td><%= number_to_currency(@warship.mobile_suit_cost, unit: "$", precision: 0) %></td>
-    </tr>
-    <tr>
-      <th>Total cost</th>
-      <td><%= number_to_currency(@warship.total_cost, unit: "$", precision: 0) %></td>
-    </tr>
-    <tr>
-      <th>Remaining budget</th>
-      <td><%= number_to_currency(@warship.remaining_budget, unit: "$", precision: 0) %></td>
-    </tr>
-  </tbody>
-</table>
 
 <div>
   <%= link_to "Edit this warship", edit_warship_path(@warship) %> |
