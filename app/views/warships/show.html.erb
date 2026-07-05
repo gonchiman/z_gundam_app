@@ -148,13 +148,7 @@
   </tbody>
 </table>
 
-<h3>Buy mobile suit</h3>
-
-<%= form_with(model: WarshipMobileSuit.new) do |form| %>
-  <%= form.hidden_field :warship_id, value: @warship.id %>
-  <%= form.collection_select :mobile_suit_id, MobileSuit.all, :id, :name %>
-  <%= form.submit "Buy mobile suit" %>
-<% end %>
+<%= link_to "Buy mobile suit", new_warship_mobile_suit_path(warship_id: @warship.id) %>
 
 <h2>Budget</h2>
 <table>
