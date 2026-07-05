@@ -74,3 +74,25 @@ CSV.foreach(Rails.root.join("db/csv/pilot_compatibility_bonuses.csv"), headers: 
 
   pilot_compatibility_bonus.save!
 end
+
+CSV.foreach(Rails.root.join("db/csv/captain_compatibility_bonuses.csv"), headers: true, encoding: "bom|utf-8") do |row|
+  captain_crew_member_name = row["captain_crew_member_name"]
+  target_crew_member_name = row["target_crew_member_name"]
+
+  captain_crew_member = CrewMember.find_by(name: captain_crew_member_name) ||
+    CrewMember.find_by(name: captain_crew_member_name.delete("・"))
+  raise "Captain CrewMember not found in captain_compatibility_bonuses.csv: #{captain_crew_member_name}" if captain_crew_member.blank?
+
+  target_crew_member = CrewMember.find_by(name: target_crew_member_name) ||
+    CrewMember.find_by(name: target_crew_member_name.delete("・"))
+  raise "Target CrewMember not found in captain_compatibility_bonuses.csv: #{target_crew_member_name}" if target_crew_member.blank?
+
+  captain_compatibility_bonus = CaptainCompatibilityBonus.find_or_initialize_by(
+    captain_crew_member: captain_crew_member,
+    target_crew_member: target_crew_member
+  )
+
+  captain_compatibility_bonus.bonus_power = row["bonus_power"].to_i
+
+  captain_compatibility_bonus.save!
+end
