@@ -16,26 +16,31 @@
   <div>
     <%= form.label :warship_id, style: "display: block" %>
     <%= form.hidden_field :warship_id %>
-    <%= pilot_assignment.warship&.name %>
+    <%= pilot_assignment.warship&.name || "No warship selected" %>
   </div>
 
   <% if pilot_assignment.new_record? %>
-    <% hired_crew_member_ids = pilot_assignment.warship.pilot_assignments.select(:crew_member_id) %>
-    <% available_crew_members = CrewMember.where(role_type: ["pilot_only", "captain_and_pilot"]).where.not(id: hired_crew_member_ids) %>
+    <% if pilot_assignment.warship.present? %>
+      <% hired_crew_member_ids = pilot_assignment.warship.pilot_assignments.select(:crew_member_id) %>
+      <% available_crew_members = CrewMember.where(role_type: ["pilot_only", "captain_and_pilot"]).where.not(id: hired_crew_member_ids) %>
 
-    <div>
-      <%= form.label :crew_member_id, "Pilot", style: "display: block" %>
-      <% if available_crew_members.any? %>
-        <%= form.collection_select :crew_member_id,
-          available_crew_members,
-          :id,
-          :name
-        %>
-      <% else %>
-        <% can_submit = false %>
-        <p>All available pilots have already been hired.</p>
-      <% end %>
-    </div>
+      <div>
+        <%= form.label :crew_member_id, "Pilot", style: "display: block" %>
+        <% if available_crew_members.any? %>
+          <%= form.collection_select :crew_member_id,
+            available_crew_members,
+            :id,
+            :name
+          %>
+        <% else %>
+          <% can_submit = false %>
+          <p>All available pilots have already been hired.</p>
+        <% end %>
+      </div>
+    <% else %>
+      <% can_submit = false %>
+      <p>Please start from a warship page.</p>
+    <% end %>
   <% else %>
     <div>
       <strong>Pilot:</strong>
