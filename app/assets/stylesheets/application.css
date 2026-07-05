@@ -71,6 +71,10 @@ body {
   font-size: 14px;
 }
 
+.site-user-menu form {
+  margin: 0;
+}
+
 .header-button,
 .header-link-button {
   display: inline-block;
