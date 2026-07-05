@@ -39,12 +39,12 @@
 
     <div class="warship-summary-captain">
       <div class="warship-summary-captain-image">
-        <% if @warship.captain.present? && @warship.captain.image.attached? %>
-          <%= link_to @warship.captain do %>
+        <%= link_to edit_warship_path(@warship) do %>
+          <% if @warship.captain.present? && @warship.captain.image.attached? %>
             <%= image_tag @warship.captain.image %>
+          <% else %>
+            <span>No captain image</span>
           <% end %>
-        <% else %>
-          <span>No captain image</span>
         <% end %>
       </div>
 
