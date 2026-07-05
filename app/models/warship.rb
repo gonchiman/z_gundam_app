@@ -7,6 +7,7 @@ class Warship < ApplicationRecord
   has_many :mobile_suits, through: :warship_mobile_suits
 
   has_one_attached :image
+  has_one_attached :main_image  # 詳細ページ用
 
   validate :captain_must_be_available
 

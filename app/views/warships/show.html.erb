@@ -3,6 +3,14 @@
 
 <h1><%= @warship.name %></h1>
 
+<% if @warship.main_image.attached? %>
+  <div>
+    <%= image_tag @warship.main_image, width: 600 %>
+  </div>
+<% else %>
+  <p>No main image</p>
+<% end %>
+
 <h2>Captain</h2>
 
 <table>
