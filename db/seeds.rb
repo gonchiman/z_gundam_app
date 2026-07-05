@@ -21,3 +21,12 @@ CSV.foreach(Rails.root.join("db/csv/crew_members.csv"), headers: true, encoding:
 
   crew_member.save!
 end
+
+CSV.foreach(Rails.root.join("db/csv/mobile_suits.csv"), headers: true, encoding: "bom|utf-8") do |row|
+  mobile_suit = MobileSuit.find_or_initialize_by(name: row["name"])
+
+  mobile_suit.purchase_cost = row["purchase_cost"].to_i
+  mobile_suit.combat_power = row["combat_power"].to_i
+
+  mobile_suit.save!
+end

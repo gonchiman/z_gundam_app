@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_05_074759) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_05_081242) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -51,8 +51,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_05_074759) do
   end
 
   create_table "mobile_suits", force: :cascade do |t|
+    t.integer "combat_power"
     t.datetime "created_at", null: false
     t.string "name"
+    t.integer "purchase_cost"
     t.datetime "updated_at", null: false
   end
 
