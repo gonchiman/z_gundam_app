@@ -26,7 +26,7 @@ class PilotAssignmentsController < ApplicationController
 
     respond_to do |format|
       if @pilot_assignment.save
-        format.html { redirect_to @pilot_assignment.warship, notice: "Pilot assignment was successfully created." }
+        format.html { redirect_to @pilot_assignment.warship, notice: "Pilot was successfully hired." }
         format.json { render :show, status: :created, location: @pilot_assignment }
       else
         format.html { render :new, status: :unprocessable_content }
@@ -39,7 +39,7 @@ class PilotAssignmentsController < ApplicationController
   def update
     respond_to do |format|
       if @pilot_assignment.update(pilot_assignment_params)
-        format.html { redirect_to @pilot_assignment, notice: "Pilot assignment was successfully updated.", status: :see_other }
+        format.html { redirect_to @pilot_assignment.warship, notice: "Mobile suit was successfully assigned.", status: :see_other }
         format.json { render :show, status: :ok, location: @pilot_assignment }
       else
         format.html { render :edit, status: :unprocessable_content }
