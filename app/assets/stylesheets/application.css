@@ -135,6 +135,102 @@ h2 {
   margin-bottom: 8px;
 }
 
+.warship-summary {
+  display: grid;
+  grid-template-columns: minmax(280px, 2fr) minmax(260px, 1fr);
+  gap: 20px;
+  align-items: stretch;
+  margin: 16px 0 28px;
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+.warship-summary-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 260px;
+  background-color: #f3f4f6;
+  color: #666666;
+}
+
+.warship-summary-image img {
+  width: 100%;
+  height: 100%;
+  max-height: 420px;
+  object-fit: cover;
+}
+
+.warship-summary-content {
+  padding: 16px;
+}
+
+.warship-summary-content h2 {
+  margin-top: 0;
+  font-size: 24px;
+}
+
+.warship-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.warship-summary-item,
+.warship-summary-captain {
+  border: 1px solid #dddddd;
+  border-radius: 6px;
+  padding: 10px;
+  background-color: #fafafa;
+}
+
+.warship-summary-item span,
+.warship-summary-captain span {
+  display: block;
+  margin-bottom: 4px;
+  color: #666666;
+  font-size: 13px;
+}
+
+.warship-summary-item strong,
+.warship-summary-captain strong {
+  display: block;
+  font-size: 18px;
+}
+
+.warship-summary-captain {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.warship-summary-captain-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 96px;
+  flex: 0 0 96px;
+  overflow: hidden;
+  background-color: #f3f4f6;
+  color: #666666;
+}
+
+.warship-summary-captain-image a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.warship-summary-captain-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .selection-card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -224,4 +320,14 @@ h2 {
 .selection-card-warning {
   color: #b91c1c;
   font-weight: bold;
+}
+
+@media (max-width: 760px) {
+  .warship-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .warship-summary-grid {
+    grid-template-columns: 1fr;
+  }
 }
