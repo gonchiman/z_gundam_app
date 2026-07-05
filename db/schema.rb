@@ -1,6 +1,6 @@
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
-# incrementally modify your database, and then regenerate this schema definition.
+# incrementally modify this file.
 #
 # This file is the source Rails uses to define your schema when running `bin/rails
 # db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_05_101000) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_05_102000) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -79,6 +79,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_05_101000) do
     t.index ["warship_id"], name: "index_pilot_assignments_on_warship_id"
   end
 
+  create_table "pilot_compatibility_bonuses", force: :cascade do |t|
+    t.integer "bonus_power", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.integer "source_crew_member_id", null: false
+    t.integer "target_crew_member_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["source_crew_member_id", "target_crew_member_id"], name: "index_pilot_compatibility_bonuses_on_source_and_target", unique: true
+    t.index ["source_crew_member_id"], name: "index_pilot_compatibility_bonuses_on_source_crew_member_id"
+    t.index ["target_crew_member_id"], name: "index_pilot_compatibility_bonuses_on_target_crew_member_id"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "ip_address"
@@ -125,6 +136,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_05_101000) do
   add_foreign_key "compatibility_bonuses", "mobile_suits"
   add_foreign_key "pilot_assignments", "crew_members"
   add_foreign_key "pilot_assignments", "warships"
+  add_foreign_key "pilot_compatibility_bonuses", "crew_members", column: "source_crew_member_id"
+  add_foreign_key "pilot_compatibility_bonuses", "crew_members", column: "target_crew_member_id"
   add_foreign_key "sessions", "users"
   add_foreign_key "warship_mobile_suits", "mobile_suits"
   add_foreign_key "warship_mobile_suits", "warships"
