@@ -3,6 +3,8 @@ class Warship < ApplicationRecord
   belongs_to :user, optional: true
 
   has_many :pilot_assignments, dependent: :destroy
+  has_many :warship_mobile_suits, dependent: :destroy
+  has_many :mobile_suits, through: :warship_mobile_suits
 
   has_one_attached :image
 
