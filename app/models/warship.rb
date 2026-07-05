@@ -10,6 +10,7 @@ class Warship < ApplicationRecord
   has_one_attached :main_image  # 詳細ページ用
 
   validate :captain_must_be_available
+  validate :total_cost_must_not_exceed_budget
 
   def total_combat_power
     pilot_assignments.includes(:crew_member, :mobile_suit).sum(&:combat_power)
@@ -46,6 +47,12 @@ class Warship < ApplicationRecord
 
     unless captain.role_type == "captain_only" || captain.role_type == "captain_and_pilot"
       errors.add(:captain_id, "must be captain available")
+    end
+  end
+
+  def total_cost_must_not_exceed_budget
+    if total_cost > budget.to_i
+      errors.add(:base, "Budget exceeded")
     end
   end
 end
