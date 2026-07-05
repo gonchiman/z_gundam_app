@@ -1,30 +1,32 @@
+<% if warship.errors.any? %>
+  <div style="color: red">
+    <h2><%= pluralize(warship.errors.count, "error") %> prohibited this warship from being saved:</h2>
+
+    <ul>
+      <% warship.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <%= form_with(model: warship) do |form| %>
-  <% if warship.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(warship.errors.count, "error") %> prohibited this warship from being saved:</h2>
-
-      <ul>
-        <% warship.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
   <div>
     <%= form.label :name, style: "display: block" %>
     <%= form.text_field :name %>
   </div>
 
-  <div>
-    <%= form.label :captain_id, style: "display: block" %>
-    <%= form.collection_select :captain_id,
-      CrewMember.where(role_type: ["captain_only", "captain_and_pilot"]),
-      :id,
-      :name,
-      include_blank: true
-    %>
-  </div>
+  <% if warship.new_record? %>
+    <div>
+      <%= form.label :captain_id, style: "display: block" %>
+      <%= form.collection_select :captain_id,
+        CrewMember.where(role_type: ["captain_only", "captain_and_pilot"]),
+        :id,
+        :name,
+        include_blank: true
+      %>
+    </div>
+  <% end %>
 
   <div>
     <%= form.label :image, style: "display: block" %>
@@ -36,5 +38,59 @@
 
   <div>
     <%= form.submit %>
+  </div>
+<% end %>
+
+<% unless warship.new_record? %>
+  <% captains = CrewMember.where(role_type: ["captain_only", "captain_and_pilot"]).order(:name) %>
+
+  <h2>Captain</h2>
+
+  <div class="selection-card-grid">
+    <div class="selection-card">
+      <div class="selection-card-image">
+        <%= button_to warship_path(warship),
+          method: :patch,
+          params: { warship: { captain_id: "" } },
+          class: "selection-card-image-button" do %>
+          <span>No captain</span>
+        <% end %>
+      </div>
+
+      <div class="selection-card-body">
+        <h2>No captain</h2>
+        <p>Rank: -</p>
+        <p>Cost: <%= number_to_currency(0, unit: "$", precision: 0) %></p>
+        <% if warship.captain.blank? %>
+          <p>Selected</p>
+        <% end %>
+      </div>
+    </div>
+
+    <% captains.each do |captain| %>
+      <div class="selection-card">
+        <div class="selection-card-image">
+          <%= button_to warship_path(warship),
+            method: :patch,
+            params: { warship: { captain_id: captain.id } },
+            class: "selection-card-image-button" do %>
+            <% if captain.image.attached? %>
+              <%= image_tag captain.image %>
+            <% else %>
+              <span>No image</span>
+            <% end %>
+          <% end %>
+        </div>
+
+        <div class="selection-card-body">
+          <h2><%= captain.name %></h2>
+          <p>Rank: <%= captain.rank.presence || "-" %></p>
+          <p>Cost: <%= number_to_currency(captain.hire_cost, unit: "$", precision: 0) %></p>
+          <% if warship.captain_id == captain.id %>
+            <p>Selected</p>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
   </div>
 <% end %>
