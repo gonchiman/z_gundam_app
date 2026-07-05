@@ -4,6 +4,7 @@ class WarshipMobileSuitsController < ApplicationController
   def new
     @warship = Warship.find(params[:warship_id])
     @warship_mobile_suit = WarshipMobileSuit.new(warship: @warship)
+    set_buy_mobile_suit_page_data
   end
 
   def create
@@ -19,8 +20,9 @@ class WarshipMobileSuitsController < ApplicationController
         format.html { redirect_to @warship_mobile_suit.warship, notice: "Mobile suit was successfully purchased." }
         format.json { render json: @warship_mobile_suit, status: :created }
       else
-        warship = Warship.find(permitted_params[:warship_id])
-        format.html { redirect_to warship, alert: @warship_mobile_suit.errors.full_messages.join(", "), status: :see_other }
+        @warship = Warship.find(permitted_params[:warship_id])
+        set_buy_mobile_suit_page_data
+        format.html { render :new, status: :unprocessable_content }
         format.json { render json: @warship_mobile_suit.errors, status: :unprocessable_content }
       end
     end
@@ -60,5 +62,9 @@ class WarshipMobileSuitsController < ApplicationController
 
     def warship_mobile_suit_params
       params.expect(warship_mobile_suit: [ :warship_id, :mobile_suit_id ])
+    end
+
+    def set_buy_mobile_suit_page_data
+      @mobile_suits = MobileSuit.order(:name)
     end
 end
