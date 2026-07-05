@@ -2,14 +2,77 @@
 
 <h1>Hire pilot</h1>
 
-<%= render "form", pilot_assignment: @pilot_assignment %>
+<% if @pilot_assignment.errors.any? %>
+  <div style="color: red">
+    <h2><%= pluralize(@pilot_assignment.errors.count, "error") %> prohibited this pilot from being hired:</h2>
 
-<br>
+    <ul>
+      <% @pilot_assignment.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 
-<div>
-  <% if @pilot_assignment.warship.present? %>
-    <%= link_to "Back to warship", @pilot_assignment.warship %>
+<% if @warship.present? %>
+  <p>
+    <strong>Warship:</strong>
+    <%= @warship.name %>
+  </p>
+
+  <p>
+    <strong>Remaining budget:</strong>
+    <%= number_to_currency(@warship.remaining_budget, unit: "$", precision: 0) %>
+  </p>
+
+  <% if @available_crew_members.any? %>
+    <div class="selection-card-grid">
+      <% @available_crew_members.each do |crew_member| %>
+        <% over_budget = crew_member.hire_cost.to_i > @warship.remaining_budget %>
+
+        <div class="selection-card">
+          <div class="selection-card-image">
+            <% if crew_member.image.attached? %>
+              <%= image_tag crew_member.image %>
+            <% else %>
+              <span>No image</span>
+            <% end %>
+          </div>
+
+          <div class="selection-card-body">
+            <h2><%= crew_member.name %></h2>
+            <p>Cost: <%= number_to_currency(crew_member.hire_cost, unit: "$", precision: 0) %></p>
+
+            <% if over_budget %>
+              <p class="selection-card-warning">Budget exceeded</p>
+            <% end %>
+
+            <%= button_to "Hire",
+              pilot_assignments_path,
+              method: :post,
+              params: {
+                pilot_assignment: {
+                  warship_id: @warship.id,
+                  crew_member_id: crew_member.id
+                }
+              },
+              disabled: over_budget
+            %>
+          </div>
+        </div>
+      <% end %>
+    </div>
   <% else %>
-    <%= link_to "Back to pilot assignments", pilot_assignments_path %>
+    <p>All available pilots have already been hired.</p>
   <% end %>
-</div>
+
+  <div>
+    <%= link_to "Back to warship", @warship %>
+  </div>
+<% else %>
+  <p>Please start from a warship page.</p>
+
+  <div>
+    <%= link_to "Back to pilot assignments", pilot_assignments_path %>
+  </div>
+<% end %>
