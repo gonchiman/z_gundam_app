@@ -11,6 +11,10 @@ class Warship < ApplicationRecord
 
   validate :captain_must_be_available
 
+  def total_combat_power
+    pilot_assignments.includes(:crew_member, :mobile_suit).sum(&:combat_power)
+  end
+
   private
 
   def captain_must_be_available
