@@ -212,15 +212,17 @@ h2 {
 .warship-card-captain strong,
 .warship-card-meta strong {
   display: block;
+  overflow-wrap: anywhere;
 }
 
 .warship-card-meta {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
   gap: 10px;
 }
 
 .warship-card-meta > div {
+  min-width: 0;
   border: 1px solid #dddddd;
   border-radius: 6px;
   padding: 8px;
