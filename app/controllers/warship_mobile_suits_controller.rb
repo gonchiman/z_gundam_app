@@ -2,14 +2,15 @@ class WarshipMobileSuitsController < ApplicationController
   before_action :set_warship_mobile_suit, only: %i[ destroy ]
 
   def create
-    @warship_mobile_suit = WarshipMobileSuit.new(warship_mobile_suit_params)
+    permitted_params = warship_mobile_suit_params
+    @warship_mobile_suit = WarshipMobileSuit.new(permitted_params)
 
     respond_to do |format|
       if @warship_mobile_suit.save
         format.html { redirect_to @warship_mobile_suit.warship, notice: "Mobile suit was successfully purchased." }
         format.json { render json: @warship_mobile_suit, status: :created }
       else
-        warship = Warship.find(warship_mobile_suit_params[:warship_id])
+        warship = Warship.find(permitted_params[:warship_id])
         format.html { redirect_to warship, alert: @warship_mobile_suit.errors.full_messages.join(", "), status: :see_other }
         format.json { render json: @warship_mobile_suit.errors, status: :unprocessable_content }
       end
