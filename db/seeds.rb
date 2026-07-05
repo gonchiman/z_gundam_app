@@ -35,10 +35,12 @@ CSV.foreach(Rails.root.join("db/csv/compatibility_bonuses.csv"), headers: true, 
   crew_member_name = row["crew_member_name"]
   mobile_suit_name = row["mobile_suit_name"]
 
-  crew_member = CrewMember.find_by(name: crew_member_name)
+  crew_member = CrewMember.find_by(name: crew_member_name) ||
+    CrewMember.find_by(name: crew_member_name.delete("・"))
   raise "CrewMember not found in compatibility_bonuses.csv: #{crew_member_name}" if crew_member.blank?
 
-  mobile_suit = MobileSuit.find_by(name: mobile_suit_name)
+  mobile_suit = MobileSuit.find_by(name: mobile_suit_name) ||
+    MobileSuit.find_by(name: mobile_suit_name.delete("・"))
   raise "MobileSuit not found in compatibility_bonuses.csv: #{mobile_suit_name}" if mobile_suit.blank?
 
   compatibility_bonus = CompatibilityBonus.find_or_initialize_by(
