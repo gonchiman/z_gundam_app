@@ -15,7 +15,16 @@ class PilotAssignment < ApplicationRecord
   def combat_power
     return 0 if mobile_suit.blank?
 
-    crew_member.combat_power.to_i + mobile_suit.combat_power.to_i
+    crew_member.combat_power.to_i + mobile_suit.combat_power.to_i + compatibility_bonus_power
+  end
+
+  def compatibility_bonus_power
+    return 0 if crew_member.blank? || mobile_suit.blank?
+
+    CompatibilityBonus.find_by(
+      crew_member_id: crew_member_id,
+      mobile_suit_id: mobile_suit_id
+    )&.bonus_power.to_i
   end
 
   private
