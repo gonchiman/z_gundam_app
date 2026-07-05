@@ -26,18 +26,33 @@
   <body>
     <% current_session = Session.find_by_id(cookies.signed[:session_id]) %>
 
-    <% if current_session %>
-      <p>
-        Logged in as <%= current_session.user.name %>
-        <%= button_to "Logout", session_path, method: :delete %>
-      </p>
-    <% else %>
-      <p>
-        Not logged in
-        <%= link_to "Login", new_session_path %>
-      </p>
-    <% end %>
-  </body>
+    <header class="site-header">
+      <div class="site-header-inner">
+        <div class="site-header-left">
+          <%= link_to "Z Fleet Manager", root_path, class: "site-title" %>
 
-  <%= yield %>  
+          <nav class="site-nav">
+            <%= link_to "Crew members", crew_members_path %>
+            <%= link_to "Warships", warships_path %>
+            <%= link_to "Mobile suits", mobile_suits_path %>
+            <%= link_to "Pilot assignments", pilot_assignments_path %>
+          </nav>
+        </div>
+
+        <div class="site-user-menu">
+          <% if current_session %>
+            <span>Logged in as <%= current_session.user.name %></span>
+            <%= button_to "Logout", session_path, method: :delete, class: "header-button" %>
+          <% else %>
+            <span>Not logged in</span>
+            <%= link_to "Login", new_session_path, class: "header-link-button" %>
+          <% end %>
+        </div>
+      </div>
+    </header>
+
+    <main class="page-content">
+      <%= yield %>
+    </main>
+  </body>
 </html>
