@@ -165,9 +165,13 @@ h2 {
 }
 
 .selection-card-image a {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 100%;
+  color: inherit;
+  text-align: center;
 }
 
 .selection-card-image form {
