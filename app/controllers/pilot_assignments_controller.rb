@@ -80,6 +80,7 @@ class PilotAssignmentsController < ApplicationController
       @available_crew_members = CrewMember
         .where(role_type: ["pilot_only", "captain_and_pilot"])
         .where.not(id: hired_crew_member_ids)
+        .where.not(id: @warship.captain_id)
         .order(:name)
     end
 end
