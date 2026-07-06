@@ -16,11 +16,6 @@
 
     <div class="crew-member-summary-grid">
       <div class="crew-member-summary-item">
-        <span>Combat power</span>
-        <strong><%= @mobile_suit.combat_power.presence || "Not set" %></strong>
-      </div>
-
-      <div class="crew-member-summary-item">
         <span>Purchase cost</span>
         <strong>
           <% if @mobile_suit.purchase_cost.present? %>
