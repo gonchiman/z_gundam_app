@@ -1,8 +1,60 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @mobile_suit %>
+<h1>Mobile suit information</h1>
 
-<div>
+<section class="crew-member-summary">
+  <div class="crew-member-summary-image">
+    <% if @mobile_suit.image.attached? %>
+      <%= image_tag @mobile_suit.image %>
+    <% else %>
+      <span>No mobile suit image</span>
+    <% end %>
+  </div>
+
+  <div class="crew-member-summary-content">
+    <h2><%= @mobile_suit.name %></h2>
+
+    <div class="crew-member-summary-grid">
+      <div class="crew-member-summary-item">
+        <span>Combat power</span>
+        <strong><%= @mobile_suit.combat_power.presence || "Not set" %></strong>
+      </div>
+
+      <div class="crew-member-summary-item">
+        <span>Purchase cost</span>
+        <strong>
+          <% if @mobile_suit.purchase_cost.present? %>
+            <%= number_to_currency(@mobile_suit.purchase_cost, unit: "$", precision: 0) %>
+          <% else %>
+            Not set
+          <% end %>
+        </strong>
+      </div>
+
+      <div class="crew-member-summary-item">
+        <span>Assigned pilots</span>
+        <strong><%= @mobile_suit.pilot_assignments.count %></strong>
+      </div>
+
+      <div class="crew-member-summary-item">
+        <span>Purchased warships</span>
+        <strong><%= @mobile_suit.warship_mobile_suits.count %></strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="crew-member-detail-card">
+  <h2>Explanation</h2>
+
+  <% if @mobile_suit.explanation.present? %>
+    <%= simple_format(@mobile_suit.explanation) %>
+  <% else %>
+    <p>No explanation</p>
+  <% end %>
+</section>
+
+<div class="page-actions">
   <%= link_to "Edit this mobile suit", edit_mobile_suit_path(@mobile_suit) %> |
   <%= link_to "Back to mobile suits", mobile_suits_path %>
 
