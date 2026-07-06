@@ -41,17 +41,17 @@
         </strong>
       </div>
     </div>
+
+    <div class="crew-member-detail-card">
+      <h2>Explanation</h2>
+
+      <% if @crew_member.explanation.present? %>
+        <%= simple_format(@crew_member.explanation) %>
+      <% else %>
+        <p>No explanation</p>
+      <% end %>
+    </div>
   </div>
-</section>
-
-<section class="crew-member-detail-card">
-  <h2>Explanation</h2>
-
-  <% if @crew_member.explanation.present? %>
-    <%= simple_format(@crew_member.explanation) %>
-  <% else %>
-    <p>No explanation</p>
-  <% end %>
 </section>
 
 <% if @crew_member.captain_warship_image.attached? %>
