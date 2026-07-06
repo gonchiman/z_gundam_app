@@ -10,7 +10,6 @@
       <tr>
         <th>Image</th>
         <th>Name</th>
-        <th>Combat power</th>
         <th>Purchase cost</th>
         <th>Actions</th>
       </tr>
@@ -28,7 +27,6 @@
           </td>
 
           <td><%= mobile_suit.name %></td>
-          <td><%= mobile_suit.combat_power.presence || "Not set" %></td>
           <td>
             <% if mobile_suit.purchase_cost.present? %>
               <%= number_to_currency(mobile_suit.purchase_cost, unit: "$", precision: 0) %>
