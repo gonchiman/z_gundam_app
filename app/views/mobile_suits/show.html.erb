@@ -2,8 +2,8 @@
 
 <h1>Mobile suit information</h1>
 
-<section class="crew-member-summary">
-  <div class="crew-member-summary-image">
+<section class="profile-detail">
+  <div class="profile-detail-media">
     <% if @mobile_suit.image.attached? %>
       <%= image_tag @mobile_suit.image %>
     <% else %>
@@ -11,11 +11,14 @@
     <% end %>
   </div>
 
-  <div class="crew-member-summary-content">
-    <h2><%= @mobile_suit.name %></h2>
+  <div class="profile-detail-content">
+    <div class="profile-detail-heading">
+      <span>Mobile suit</span>
+      <h2><%= @mobile_suit.name %></h2>
+    </div>
 
-    <div class="crew-member-summary-grid">
-      <div class="crew-member-summary-item">
+    <div class="profile-detail-meta-grid">
+      <div class="profile-detail-meta-item">
         <span>Purchase cost</span>
         <strong>
           <% if @mobile_suit.purchase_cost.present? %>
@@ -27,7 +30,7 @@
       </div>
     </div>
 
-    <div class="crew-member-detail-card">
+    <div class="profile-detail-description">
       <h2>Explanation</h2>
 
       <% if @mobile_suit.explanation.present? %>
@@ -40,7 +43,7 @@
 </section>
 
 <div class="page-actions">
-  <%= link_to "Edit this mobile suit", edit_mobile_suit_path(@mobile_suit) %> |
+  <%= link_to "Edit this mobile suit", edit_mobile_suit_path(@mobile_suit) %>
   <%= link_to "Back to mobile suits", mobile_suits_path %>
 
   <%= button_to "Destroy this mobile suit", @mobile_suit, method: :delete %>
