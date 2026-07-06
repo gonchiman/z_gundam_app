@@ -4,40 +4,46 @@
 
 <h1>Mobile suits</h1>
 
-<div id="mobile_suits" class="selection-card-grid">
-  <% @mobile_suits.each do |mobile_suit| %>
-    <div id="<%= dom_id mobile_suit %>" class="selection-card">
-      <div class="selection-card-image">
-        <%= link_to mobile_suit do %>
-          <% if mobile_suit.image.attached? %>
-            <%= image_tag mobile_suit.image %>
-          <% else %>
-            <span>No mobile suit image</span>
-          <% end %>
-        <% end %>
-      </div>
+<div id="mobile_suits">
+  <table>
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Combat power</th>
+        <th>Purchase cost</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
 
-      <div class="selection-card-body">
-        <h2><%= link_to mobile_suit.name, mobile_suit %></h2>
+    <tbody>
+      <% @mobile_suits.each do |mobile_suit| %>
+        <tr id="<%= dom_id mobile_suit %>">
+          <td>
+            <% if mobile_suit.image.attached? %>
+              <%= image_tag mobile_suit.image, width: 100 %>
+            <% else %>
+              No Image
+            <% end %>
+          </td>
 
-        <p>
-          <strong>Combat power:</strong>
-          <%= mobile_suit.combat_power.presence || "Not set" %>
-        </p>
-
-        <p>
-          <strong>Purchase cost:</strong>
-          <% if mobile_suit.purchase_cost.present? %>
-            <%= number_to_currency(mobile_suit.purchase_cost, unit: "$", precision: 0) %>
-          <% else %>
-            Not set
-          <% end %>
-        </p>
-
-        <p><%= link_to "Show", mobile_suit %></p>
-      </div>
-    </div>
-  <% end %>
+          <td><%= mobile_suit.name %></td>
+          <td><%= mobile_suit.combat_power.presence || "Not set" %></td>
+          <td>
+            <% if mobile_suit.purchase_cost.present? %>
+              <%= number_to_currency(mobile_suit.purchase_cost, unit: "$", precision: 0) %>
+            <% else %>
+              Not set
+            <% end %>
+          </td>
+          <td>
+            <%= link_to "Show", mobile_suit %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
 
+<br>
 <%= link_to "New mobile suit", new_mobile_suit_path %>
