@@ -1,18 +1,11 @@
 /*
- * This is a manifest file that'll be compiled into application.css.
- *
- * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
- * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
- * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
- * depending on specificity.
- *
- * Consider organizing styles into separate files for maintainability.
+ * Application-wide styles.
  */
 
 body {
   margin: 0;
   color: #222222;
-  background-color: #ffffff;
+  background-color: #f4f6f8;
   font-family: Arial, sans-serif;
 }
 
@@ -104,6 +97,7 @@ table {
   border-collapse: collapse;
   width: 100%;
   margin-bottom: 24px;
+  background-color: #ffffff;
 }
 
 th {
@@ -127,7 +121,7 @@ tr:hover {
 }
 
 h1 {
-  margin-bottom: 16px;
+  margin: 0 0 18px;
 }
 
 h2 {
@@ -142,36 +136,48 @@ h2 {
   margin: 16px 0 24px;
 }
 
-.warship-card {
+.warship-card,
+.selection-card {
   overflow: hidden;
-  border: 1px solid #cccccc;
-  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
   background-color: #ffffff;
 }
 
-.warship-card-main-image {
+.warship-card-main-image,
+.selection-card-image {
   display: flex;
   align-items: center;
   justify-content: center;
-  aspect-ratio: 16 / 10;
   background-color: #f3f4f6;
   color: #666666;
   text-align: center;
 }
 
-.warship-card-main-image img {
+.warship-card-main-image {
+  aspect-ratio: 16 / 10;
+}
+
+.warship-card-main-image img,
+.selection-card-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.warship-card-body {
+.warship-card-body,
+.selection-card-body {
   padding: 12px;
 }
 
-.warship-card-body h2 {
+.warship-card-body h2,
+.selection-card-body h2 {
   margin: 0 0 10px;
-  font-size: 20px;
+  font-size: 18px;
+}
+
+.selection-card-body p {
+  margin: 0 0 8px;
 }
 
 .warship-card-captain {
@@ -235,8 +241,8 @@ h2 {
   gap: 20px;
   align-items: stretch;
   margin: 16px 0 28px;
-  border: 1px solid #cccccc;
-  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
   overflow: hidden;
   background-color: #ffffff;
 }
@@ -336,26 +342,8 @@ h2 {
   margin: 16px 0 24px;
 }
 
-.selection-card {
-  border: 1px solid #cccccc;
-  border-radius: 6px;
-  overflow: hidden;
-  background-color: #ffffff;
-}
-
 .selection-card-image {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   aspect-ratio: 1 / 1;
-  background-color: #f3f4f6;
-  color: #666666;
-}
-
-.selection-card-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 .selection-card-image a {
@@ -402,22 +390,143 @@ h2 {
   aspect-ratio: 4 / 3;
 }
 
-.selection-card-body {
-  padding: 10px;
-}
-
-.selection-card-body h2 {
-  margin: 0 0 8px;
-  font-size: 16px;
-}
-
-.selection-card-body p {
-  margin: 0 0 8px;
-}
-
 .selection-card-warning {
   color: #b91c1c;
   font-weight: bold;
+}
+
+.profile-detail {
+  display: grid;
+  grid-template-columns: minmax(260px, 360px) minmax(0, 1fr);
+  margin: 16px 0 28px;
+  overflow: hidden;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 8px 24px rgba(31, 41, 55, 0.08);
+}
+
+.profile-detail-media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 420px;
+  background-color: #e5e7eb;
+  color: #6b7280;
+  text-align: center;
+}
+
+.profile-detail-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-detail-content {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 24px;
+}
+
+.profile-detail-heading {
+  padding-bottom: 14px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.profile-detail-heading span {
+  display: block;
+  margin-bottom: 6px;
+  color: #6b7280;
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.profile-detail-heading h2 {
+  margin: 0;
+  color: #111827;
+  font-size: 30px;
+  line-height: 1.2;
+}
+
+.profile-detail-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.profile-detail-meta-item {
+  min-width: 0;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 12px;
+  background-color: #f9fafb;
+}
+
+.profile-detail-meta-item span {
+  display: block;
+  margin-bottom: 6px;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.profile-detail-meta-item strong {
+  display: block;
+  color: #111827;
+  font-size: 18px;
+  overflow-wrap: anywhere;
+}
+
+.profile-detail-description {
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 14px;
+  background-color: #ffffff;
+}
+
+.profile-detail-description h2 {
+  margin: 0 0 10px;
+  color: #111827;
+  font-size: 18px;
+}
+
+.profile-detail-description p {
+  margin: 0 0 10px;
+  line-height: 1.7;
+}
+
+.profile-detail-description p:last-child {
+  margin-bottom: 0;
+}
+
+.profile-detail-subsection {
+  margin-bottom: 24px;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  padding: 16px;
+  background-color: #ffffff;
+  box-shadow: 0 8px 24px rgba(31, 41, 55, 0.06);
+}
+
+.profile-detail-subsection h2 {
+  margin-top: 0;
+}
+
+.profile-detail-ship-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 10px;
+  background-color: #f3f4f6;
+}
+
+.profile-detail-ship-image img {
+  width: 100%;
+  max-height: 420px;
+  object-fit: cover;
 }
 
 .crew-member-summary {
@@ -426,8 +535,8 @@ h2 {
   gap: 20px;
   align-items: stretch;
   margin: 16px 0 28px;
-  border: 1px solid #cccccc;
-  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
   overflow: hidden;
   background-color: #ffffff;
 }
@@ -512,18 +621,55 @@ h2 {
 }
 
 .page-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
   margin-top: 24px;
 }
 
+.page-actions form {
+  margin: 0;
+}
+
+.page-actions a,
+.page-actions button {
+  display: inline-block;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 7px 10px;
+  background-color: #ffffff;
+  color: #1f2937;
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.page-actions a:hover,
+.page-actions button:hover {
+  background-color: #f3f4f6;
+}
+
 @media (max-width: 760px) {
+  .site-header-inner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
   .warship-summary,
-  .crew-member-summary {
+  .crew-member-summary,
+  .profile-detail {
     grid-template-columns: 1fr;
+  }
+
+  .profile-detail-media {
+    min-height: 280px;
   }
 
   .warship-summary-grid,
   .warship-card-meta,
-  .crew-member-summary-grid {
+  .crew-member-summary-grid,
+  .profile-detail-meta-grid {
     grid-template-columns: 1fr;
   }
 }
