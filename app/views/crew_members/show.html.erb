@@ -46,12 +46,12 @@
     </div>
 
     <div class="profile-detail-description">
-      <h2>Explanation</h2>
+      <h2>Description</h2>
 
       <% if @crew_member.explanation.present? %>
         <%= simple_format(@crew_member.explanation) %>
       <% else %>
-        <p>No explanation</p>
+        <p>No description</p>
       <% end %>
     </div>
   </div>
