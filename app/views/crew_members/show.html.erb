@@ -31,11 +31,6 @@
       </div>
 
       <div class="crew-member-summary-item">
-        <span>Combat power</span>
-        <strong><%= @crew_member.combat_power.presence || "Not set" %></strong>
-      </div>
-
-      <div class="crew-member-summary-item">
         <span>Hire cost</span>
         <strong>
           <% if @crew_member.hire_cost.present? %>
