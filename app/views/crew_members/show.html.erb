@@ -1,8 +1,75 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @crew_member %>
+<h1>Pilot information</h1>
 
-<div>
+<section class="crew-member-summary">
+  <div class="crew-member-summary-image">
+    <% if @crew_member.image.attached? %>
+      <%= image_tag @crew_member.image %>
+    <% else %>
+      <span>No pilot image</span>
+    <% end %>
+  </div>
+
+  <div class="crew-member-summary-content">
+    <h2><%= @crew_member.name %></h2>
+
+    <div class="crew-member-summary-grid">
+      <div class="crew-member-summary-item">
+        <span>Gender</span>
+        <strong><%= @crew_member.gender.presence || "Not set" %></strong>
+      </div>
+
+      <div class="crew-member-summary-item">
+        <span>Rank</span>
+        <strong><%= @crew_member.rank.presence || "Not set" %></strong>
+      </div>
+
+      <div class="crew-member-summary-item">
+        <span>Role type</span>
+        <strong><%= @crew_member.role_type.presence || "Not set" %></strong>
+      </div>
+
+      <div class="crew-member-summary-item">
+        <span>Combat power</span>
+        <strong><%= @crew_member.combat_power.presence || "Not set" %></strong>
+      </div>
+
+      <div class="crew-member-summary-item">
+        <span>Hire cost</span>
+        <strong>
+          <% if @crew_member.hire_cost.present? %>
+            <%= number_to_currency(@crew_member.hire_cost, unit: "$", precision: 0) %>
+          <% else %>
+            Not set
+          <% end %>
+        </strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="crew-member-detail-card">
+  <h2>Explanation</h2>
+
+  <% if @crew_member.explanation.present? %>
+    <%= simple_format(@crew_member.explanation) %>
+  <% else %>
+    <p>No explanation</p>
+  <% end %>
+</section>
+
+<% if @crew_member.captain_warship_image.attached? %>
+  <section class="crew-member-detail-card">
+    <h2>Captain warship image</h2>
+
+    <div class="crew-member-captain-warship-image">
+      <%= image_tag @crew_member.captain_warship_image %>
+    </div>
+  </section>
+<% end %>
+
+<div class="page-actions">
   <%= link_to "Edit this crew member", edit_crew_member_path(@crew_member) %> |
   <%= link_to "Back to crew members", crew_members_path %>
 
