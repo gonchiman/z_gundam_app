@@ -31,12 +31,12 @@
     </div>
 
     <div class="profile-detail-description">
-      <h2>Explanation</h2>
+      <h2>Description</h2>
 
       <% if @mobile_suit.explanation.present? %>
         <%= simple_format(@mobile_suit.explanation) %>
       <% else %>
-        <p>No explanation</p>
+        <p>No description</p>
       <% end %>
     </div>
   </div>
