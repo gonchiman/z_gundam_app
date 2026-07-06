@@ -2,8 +2,8 @@
 
 <h1>Pilot information</h1>
 
-<section class="crew-member-summary">
-  <div class="crew-member-summary-image">
+<section class="profile-detail">
+  <div class="profile-detail-media">
     <% if @crew_member.image.attached? %>
       <%= image_tag @crew_member.image %>
     <% else %>
@@ -11,26 +11,29 @@
     <% end %>
   </div>
 
-  <div class="crew-member-summary-content">
-    <h2><%= @crew_member.name %></h2>
+  <div class="profile-detail-content">
+    <div class="profile-detail-heading">
+      <span>Pilot</span>
+      <h2><%= @crew_member.name %></h2>
+    </div>
 
-    <div class="crew-member-summary-grid">
-      <div class="crew-member-summary-item">
+    <div class="profile-detail-meta-grid">
+      <div class="profile-detail-meta-item">
         <span>Gender</span>
         <strong><%= @crew_member.gender.presence || "Not set" %></strong>
       </div>
 
-      <div class="crew-member-summary-item">
+      <div class="profile-detail-meta-item">
         <span>Rank</span>
         <strong><%= @crew_member.rank.presence || "Not set" %></strong>
       </div>
 
-      <div class="crew-member-summary-item">
+      <div class="profile-detail-meta-item">
         <span>Role type</span>
         <strong><%= @crew_member.role_type.presence || "Not set" %></strong>
       </div>
 
-      <div class="crew-member-summary-item">
+      <div class="profile-detail-meta-item">
         <span>Hire cost</span>
         <strong>
           <% if @crew_member.hire_cost.present? %>
@@ -42,7 +45,7 @@
       </div>
     </div>
 
-    <div class="crew-member-detail-card">
+    <div class="profile-detail-description">
       <h2>Explanation</h2>
 
       <% if @crew_member.explanation.present? %>
@@ -55,17 +58,17 @@
 </section>
 
 <% if @crew_member.captain_warship_image.attached? %>
-  <section class="crew-member-detail-card">
+  <section class="profile-detail-subsection">
     <h2>Captain warship image</h2>
 
-    <div class="crew-member-captain-warship-image">
+    <div class="profile-detail-ship-image">
       <%= image_tag @crew_member.captain_warship_image %>
     </div>
   </section>
 <% end %>
 
 <div class="page-actions">
-  <%= link_to "Edit this crew member", edit_crew_member_path(@crew_member) %> |
+  <%= link_to "Edit this crew member", edit_crew_member_path(@crew_member) %>
   <%= link_to "Back to crew members", crew_members_path %>
 
   <%= button_to "Destroy this crew member", @crew_member, method: :delete %>
