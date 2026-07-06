@@ -66,6 +66,6 @@ class CrewMembersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def crew_member_params
-      params.expect(crew_member: [ :name, :gender, :rank, :role_type, :image, :captain_warship_image ])
+      params.expect(crew_member: [ :name, :gender, :rank, :role_type, :image, :captain_warship_image, :explanation ])
     end
 end

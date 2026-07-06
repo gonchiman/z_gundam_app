@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resource :session
   resources :passwords, param: :token
   resources :users
-  root "warships#index"
+  root "home#index"
 
   get "home/index"
   resources :warship_mobile_suits, only: [:new, :create, :destroy]
