@@ -26,17 +26,17 @@
         </strong>
       </div>
     </div>
+
+    <div class="crew-member-detail-card">
+      <h2>Explanation</h2>
+
+      <% if @mobile_suit.explanation.present? %>
+        <%= simple_format(@mobile_suit.explanation) %>
+      <% else %>
+        <p>No explanation</p>
+      <% end %>
+    </div>
   </div>
-</section>
-
-<section class="crew-member-detail-card">
-  <h2>Explanation</h2>
-
-  <% if @mobile_suit.explanation.present? %>
-    <%= simple_format(@mobile_suit.explanation) %>
-  <% else %>
-    <p>No explanation</p>
-  <% end %>
 </section>
 
 <div class="page-actions">
