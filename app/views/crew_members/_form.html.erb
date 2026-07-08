@@ -62,12 +62,12 @@
     <%= form.label :captain_warship_image, "Captain warship image", style: "display: block" %>
     <%= form.file_field :captain_warship_image %>
   </div>
-　
+
   <div>
-    <%= form.label :explanation, style: "display: block" %>
-    <%= form.text_field :explanation %>
+    <%= form.label :explanation, "Description", style: "display: block" %>
+    <%= form.text_area :explanation, rows: 8, cols: 60 %>
   </div>
-  
+
   <div>
     <%= form.submit %>
   </div>
