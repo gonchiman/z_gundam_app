@@ -17,14 +17,42 @@
   </div>
 
   <% if warship.new_record? %>
-    <div>
-      <%= form.label :captain_id, style: "display: block" %>
-      <%= form.collection_select :captain_id,
-        CrewMember.where(role_type: ["captain_only", "captain_and_pilot"]),
-        :id,
-        :name,
-        include_blank: true
-      %>
+    <% captains = CrewMember.where(role_type: ["captain_only", "captain_and_pilot"]).order(:name) %>
+
+    <h2>Captain</h2>
+
+    <div class="selection-card-grid">
+      <label class="selection-card">
+        <div class="selection-card-image">
+          <span>No captain</span>
+        </div>
+
+        <div class="selection-card-body">
+          <%= form.radio_button :captain_id, "", checked: warship.captain_id.blank? %>
+          <h2>No captain</h2>
+          <p>Rank: -</p>
+          <p>Cost: <%= number_to_currency(0, unit: "$", precision: 0) %></p>
+        </div>
+      </label>
+
+      <% captains.each do |captain| %>
+        <label class="selection-card">
+          <div class="selection-card-image">
+            <% if captain.image.attached? %>
+              <%= image_tag captain.image %>
+            <% else %>
+              <span>No image</span>
+            <% end %>
+          </div>
+
+          <div class="selection-card-body">
+            <%= form.radio_button :captain_id, captain.id %>
+            <h2><%= captain.name %></h2>
+            <p>Rank: <%= captain.rank.presence || "-" %></p>
+            <p>Cost: <%= number_to_currency(captain.hire_cost, unit: "$", precision: 0) %></p>
+          </div>
+        </label>
+      <% end %>
     </div>
   <% end %>
 
