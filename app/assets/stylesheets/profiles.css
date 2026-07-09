@@ -1,0 +1,240 @@
+.profile-detail {
+  display: grid;
+  grid-template-columns: minmax(260px, 360px) minmax(0, 1fr);
+  margin: 16px 0 28px;
+  overflow: hidden;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 8px 24px rgba(31, 41, 55, 0.08);
+}
+
+.profile-detail-media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 420px;
+  background-color: #e5e7eb;
+  color: #6b7280;
+  text-align: center;
+}
+
+.profile-detail-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-detail-content {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 24px;
+}
+
+.profile-detail-heading {
+  padding-bottom: 14px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.profile-detail-heading span {
+  display: block;
+  margin-bottom: 6px;
+  color: #6b7280;
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.profile-detail-heading h2 {
+  margin: 0;
+  color: #111827;
+  font-size: 30px;
+  line-height: 1.2;
+}
+
+.profile-detail-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.profile-detail-meta-item {
+  min-width: 0;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 12px;
+  background-color: #f9fafb;
+}
+
+.profile-detail-meta-item span {
+  display: block;
+  margin-bottom: 6px;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.profile-detail-meta-item strong {
+  display: block;
+  color: #111827;
+  font-size: 18px;
+  overflow-wrap: anywhere;
+}
+
+.profile-detail-description {
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 14px;
+  background-color: #ffffff;
+}
+
+.profile-detail-description h2 {
+  margin: 0 0 10px;
+  color: #111827;
+  font-size: 18px;
+}
+
+.profile-detail-description p {
+  margin: 0 0 10px;
+  line-height: 1.7;
+}
+
+.profile-detail-description p:last-child {
+  margin-bottom: 0;
+}
+
+.profile-detail-subsection {
+  margin-bottom: 24px;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  padding: 16px;
+  background-color: #ffffff;
+  box-shadow: 0 8px 24px rgba(31, 41, 55, 0.06);
+}
+
+.profile-detail-subsection h2 {
+  margin-top: 0;
+}
+
+.profile-detail-ship-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 10px;
+  background-color: #f3f4f6;
+}
+
+.profile-detail-ship-image img {
+  width: 100%;
+  max-height: 420px;
+  object-fit: cover;
+}
+
+.crew-member-summary {
+  display: grid;
+  grid-template-columns: minmax(220px, 320px) minmax(260px, 1fr);
+  gap: 20px;
+  align-items: stretch;
+  margin: 16px 0 28px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+.crew-member-summary-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 320px;
+  background-color: #f3f4f6;
+  color: #666666;
+  text-align: center;
+}
+
+.crew-member-summary-image img {
+  width: 100%;
+  height: 100%;
+  max-height: 420px;
+  object-fit: cover;
+}
+
+.crew-member-summary-content {
+  padding: 16px;
+}
+
+.crew-member-summary-content h2 {
+  margin-top: 0;
+  font-size: 24px;
+}
+
+.crew-member-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.crew-member-summary-item,
+.crew-member-detail-card {
+  border: 1px solid #dddddd;
+  border-radius: 6px;
+  padding: 10px;
+  background-color: #fafafa;
+}
+
+.crew-member-summary-item span {
+  display: block;
+  margin-bottom: 4px;
+  color: #666666;
+  font-size: 13px;
+}
+
+.crew-member-summary-item strong {
+  display: block;
+  font-size: 18px;
+  overflow-wrap: anywhere;
+}
+
+.crew-member-detail-card {
+  margin-bottom: 24px;
+}
+
+.crew-member-detail-card h2 {
+  margin-top: 0;
+}
+
+.crew-member-detail-card p:last-child {
+  margin-bottom: 0;
+}
+
+.crew-member-captain-warship-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #f3f4f6;
+}
+
+.crew-member-captain-warship-image img {
+  width: 100%;
+  max-height: 420px;
+  object-fit: cover;
+}
+
+@media (max-width: 760px) {
+  .crew-member-summary,
+  .profile-detail {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-detail-media {
+    min-height: 280px;
+  }
+
+  .crew-member-summary-grid,
+  .profile-detail-meta-grid {
+    grid-template-columns: 1fr;
+  }
+}
