@@ -5,11 +5,17 @@
 <% home_gallery_captain_names = ["ブライト・ノア", "ヘンケン・ベッケナー", "パプテマス・シロッコ"] %>
 <% home_gallery_captains_by_name = CrewMember.where(name: home_gallery_captain_names).index_by(&:name) %>
 <% home_gallery_captains = home_gallery_captain_names.map { |name| home_gallery_captains_by_name[name] } %>
-<% sample_warship = Warship.find_by(id: 3) || Warship.first %>
-<% sample_pilot_assignment = sample_warship&.pilot_assignments&.first %>
-<% sample_captain = sample_warship&.captain %>
-<% sample_pilot = sample_pilot_assignment&.crew_member %>
-<% sample_mobile_suit = sample_pilot_assignment&.mobile_suit || sample_warship&.warship_mobile_suits&.first&.mobile_suit %>
+
+<% sample_captain = home_gallery_captains.compact.first %>
+<% sample_warship_image = sample_captain&.captain_warship_image %>
+
+<% sample_pilot_names = ["カミーユ・ビダン", "クワトロ・バジーナ", "アムロ・レイ"] %>
+<% sample_pilots_by_name = CrewMember.where(name: sample_pilot_names).index_by(&:name) %>
+<% sample_pilot = sample_pilot_names.map { |name| sample_pilots_by_name[name] }.compact.first %>
+
+<% sample_mobile_suit_names = ["Zガンダム", "ガンダムMk-II", "百式"] %>
+<% sample_mobile_suits_by_name = MobileSuit.where(name: sample_mobile_suit_names).index_by(&:name) %>
+<% sample_mobile_suit = sample_mobile_suit_names.map { |name| sample_mobile_suits_by_name[name] }.compact.first %>
 
 <div class="home-page">
   <section class="home-hero">
@@ -46,8 +52,8 @@
     <div class="home-overview-board">
       <div class="home-overview-main-card">
         <div class="home-overview-main-image">
-          <% if sample_warship&.display_image.present? %>
-            <%= image_tag sample_warship.display_image %>
+          <% if sample_warship_image&.attached? %>
+            <%= image_tag sample_warship_image %>
           <% else %>
             <span>戦艦</span>
           <% end %>
@@ -117,8 +123,8 @@
       <article class="home-step-card">
         <div class="home-step-number">1</div>
         <div class="home-step-image">
-          <% if sample_warship&.display_image.present? %>
-            <%= image_tag sample_warship.display_image %>
+          <% if sample_warship_image&.attached? %>
+            <%= image_tag sample_warship_image %>
           <% else %>
             <span>戦艦</span>
           <% end %>
