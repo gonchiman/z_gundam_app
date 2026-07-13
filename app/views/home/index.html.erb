@@ -123,19 +123,6 @@
       <article class="home-step-card">
         <div class="home-step-number">1</div>
         <div class="home-step-image">
-          <% if sample_warship_image&.attached? %>
-            <%= image_tag sample_warship_image %>
-          <% else %>
-            <span>戦艦</span>
-          <% end %>
-        </div>
-        <h3>戦艦を選ぶ</h3>
-        <p>戦艦一覧から、編成したい戦艦を選びます。</p>
-      </article>
-
-      <article class="home-step-card">
-        <div class="home-step-number">2</div>
-        <div class="home-step-image">
           <% if sample_captain&.image&.attached? %>
             <%= image_tag sample_captain.image %>
           <% else %>
@@ -147,7 +134,7 @@
       </article>
 
       <article class="home-step-card">
-        <div class="home-step-number">3</div>
+        <div class="home-step-number">2</div>
         <div class="home-step-image">
           <% if sample_pilot&.image&.attached? %>
             <%= image_tag sample_pilot.image %>
@@ -160,7 +147,7 @@
       </article>
 
       <article class="home-step-card">
-        <div class="home-step-number">4</div>
+        <div class="home-step-number">3</div>
         <div class="home-step-image">
           <% if sample_mobile_suit&.image&.attached? %>
             <%= image_tag sample_mobile_suit.image %>
